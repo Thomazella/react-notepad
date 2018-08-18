@@ -1,0 +1,55 @@
+{
+  "name": "notepad",
+  "version": "1.0.0",
+  "description": "Simple frontend for a notepad",
+  "license": "BSD-3-Clause",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "yarn parcel public/index.html --out-dir build --no-cache",
+    "build": "yarn clean && yarn parcel build public/index.html --public-url ./ --out-dir build",
+    "lint": "eslint src",
+    "clean": "yarn rimraf build && yarn rimraf .cache"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thomazella/react-notepad.git"
+  },
+  "author": {
+    "name": "Raphael Thomazella",
+    "email": "thomazella9@gmail.com",
+    "url": "https://github.com/thomazella"
+  },
+  "keywords": [
+    "notepad",
+    "react"
+  ],
+  "bugs": {
+    "url": "https://github.com/Thomazella/react-notepad/issues"
+  },
+  "homepage": "https://github.com/Thomazella/react-notepad#readme",
+  "dependencies": {
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-react": "^7.9.1",
+    "node-sass": "^4.9.0",
+    "parcel": "^1.8.1",
+    "prettier": "^1.13.4",
+    "rimraf": "^2.6.2"
+  }
+}
