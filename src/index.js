@@ -1,10 +1,4 @@
-import React from "react";
 import ReactDOM from "react-dom";
+import App from "./App";
 
-const Test = (
-  <React.Fragment>
-    <p>"well Hello world"</p>
-  </React.Fragment>
-);
-
-ReactDOM.render(Test, document.querySelector("#root"));
+ReactDOM.render(App, document.querySelector("#root"));
