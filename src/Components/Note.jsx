@@ -17,12 +17,12 @@ const DeleteNote = styled(Base.as("button"))`
 `;
 
 const Note = incomingProps => {
-  const { children: noteText, ...props } = incomingProps;
+  const { children: noteText, deleteNote, ...props } = incomingProps;
   return (
     <Block marginBottom="1em">
       <NoteBody {...props}>
         {noteText}
-        <DeleteNote>
+        <DeleteNote onClick={() => deleteNote(noteText)}>
           <IoIosCloseCircle />
         </DeleteNote>
       </NoteBody>

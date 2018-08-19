@@ -18,20 +18,24 @@ const Wrapper = styled(Base)`
 `;
 
 const actions = {
-  toggle: () => state => ({ closeStatus: !state.closeStatus })
+  toggle: () => state => ({ isClosed: !state.isClosed }),
+  deleteNote: targetNote => state => ({
+    notes: state.notes.filter(note => note !== targetNote)
+  }),
+  addNote: newNote => state => ({ notes: !state.notes.push(newNote) })
 };
 
 const Notepad = () => (
   <Container
-    initialState={{ notes: ["foo", "bar"], closeStatus: true }}
+    initialState={{ notes: ["foo", "bar"], isClosed: true }}
     actions={actions}
   >
-    {({ notes, closeStatus, toggle }) => (
+    {({ notes, isClosed, toggle, deleteNote }) => (
       <Wrapper>
         <LeftView>
-          <NotepadView notes={notes} />
+          <NotepadView notes={notes} deleteNote={deleteNote} />
         </LeftView>
-        <NotepadToggle closed={closeStatus} onClick={toggle} />
+        <NotepadToggle closed={isClosed} onClick={toggle} />
       </Wrapper>
     )}
   </Container>
