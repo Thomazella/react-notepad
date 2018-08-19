@@ -29,18 +29,20 @@ const Wrapper = styled(Flex)`
 
 const NotepadToggle = props => (
   <Wrapper>
-    <NotepadButton>
+    <NotepadButton onClick={props.onClick}>
       {props.closed ? <TiArrowMaximise /> : <TiArrowMinimise />}
     </NotepadButton>
   </Wrapper>
 );
 
 NotepadToggle.propTypes = {
-  closed: PropTypes.bool
+  closed: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 NotepadToggle.defaultProps = {
-  closed: true
+  closed: true,
+  onClick: () => null
 };
 
 export default NotepadToggle;

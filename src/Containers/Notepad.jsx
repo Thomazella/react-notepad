@@ -17,14 +17,21 @@ const Wrapper = styled(Base)`
   min-width: 100vw;
 `;
 
+const actions = {
+  toggle: () => state => ({ closeStatus: !state.closeStatus })
+};
+
 const Notepad = () => (
-  <Container initialState={{ notes: ["foo", "bar"], closed: true }}>
-    {({ notes, closed }) => (
+  <Container
+    initialState={{ notes: ["foo", "bar"], closeStatus: true }}
+    actions={actions}
+  >
+    {({ notes, closeStatus, toggle }) => (
       <Wrapper>
         <LeftView>
           <NotepadView notes={notes} />
         </LeftView>
-        <NotepadToggle closed={closed} />
+        <NotepadToggle closed={closeStatus} onClick={toggle} />
       </Wrapper>
     )}
   </Container>
