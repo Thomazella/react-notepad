@@ -1,17 +1,31 @@
-import { styled, InlineFlex, Block } from "reakit";
+import { styled, InlineFlex, Block, Base } from "reakit";
 import React from "react";
+import { IoIosCloseCircle } from "react-icons/io";
 
-const Box = styled(InlineFlex)`
+const NoteBody = styled(InlineFlex)`
   border-bottom: 2px solid black;
   justify-content: space-between;
   width: 100%;
+  line-height: 2;
+`;
+
+const DeleteNote = styled(Base.as("button"))`
+  background-color: transparent;
+  color: darkred;
+  font-size: 1.5em;
+  outline-color: darkred;
 `;
 
 const Note = incomingProps => {
-  const { children, ...props } = incomingProps;
+  const { children: noteText, ...props } = incomingProps;
   return (
-    <Block>
-      <Box {...props}>{children}</Box>
+    <Block marginBottom="1em">
+      <NoteBody {...props}>
+        {noteText}
+        <DeleteNote>
+          <IoIosCloseCircle />
+        </DeleteNote>
+      </NoteBody>
     </Block>
   );
 };
