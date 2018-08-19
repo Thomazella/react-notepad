@@ -1,9 +1,11 @@
 import React from "react";
+import { Provider } from "reakit";
+import Notepad from "./Containers/Notepad";
 
 const App = (
-  <React.Fragment>
-    <p>well Hell00 world</p>
-  </React.Fragment>
+  <Provider>
+    <Notepad />
+  </Provider>
 );
 
 export default App;
