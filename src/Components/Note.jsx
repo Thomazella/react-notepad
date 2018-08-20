@@ -1,6 +1,7 @@
-import { styled, InlineFlex, Block, Base } from "reakit";
+import { styled, InlineFlex, Block } from "reakit";
 import React from "react";
 import { IoIosCloseCircle } from "react-icons/io";
+import NotepadButton from "./NotepadButton";
 
 const NoteBody = styled(InlineFlex)`
   border-bottom: 2px solid black;
@@ -9,11 +10,10 @@ const NoteBody = styled(InlineFlex)`
   line-height: 2;
 `;
 
-const DeleteNote = styled(Base.as("button"))`
+const DeleteNote = styled(NotepadButton)`
   background-color: transparent;
   color: darkred;
-  font-size: 1.5em;
-  outline-color: darkred;
+  height: 2.25em;
 `;
 
 const Note = incomingProps => {

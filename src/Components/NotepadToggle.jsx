@@ -15,13 +15,21 @@ const Wrapper = styled(Flex)`
   }
 `;
 
-const NotepadToggle = props => (
-  <Wrapper>
-    <NotepadButton onClick={props.onClick}>
-      {props.closed ? <TiArrowMaximise /> : <TiArrowMinimise />}
-    </NotepadButton>
-  </Wrapper>
-);
+const ToggleButton = styled(NotepadButton)`
+  color: white;
+  background-color: #9e3be5;
+`;
+
+const NotepadToggle = props => {
+  const { onClick, closed } = props;
+  return (
+    <Wrapper>
+      <ToggleButton onClick={onClick}>
+        {closed ? <TiArrowMaximise /> : <TiArrowMinimise />}
+      </ToggleButton>
+    </Wrapper>
+  );
+};
 
 NotepadToggle.propTypes = {
   closed: PropTypes.bool,

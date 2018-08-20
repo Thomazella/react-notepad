@@ -3,7 +3,7 @@ import { Base, styled, Container } from "reakit";
 import NotepadView from "../Components/NotepadView";
 import NotepadToggle from "../Components/NotepadToggle";
 
-const LeftView = styled(Base)`
+const MainView = styled(Base)`
   max-width: 100%;
   @media (min-width: 756px) {
     max-width: 50%;
@@ -33,9 +33,9 @@ const Notepad = props => (
   >
     {({ notes, isClosed, toggle, deleteNote }) => (
       <Wrapper>
-        <LeftView>
+        <MainView>
           <NotepadView notes={notes} deleteNote={deleteNote} />
-        </LeftView>
+        </MainView>
         <NotepadToggle closed={isClosed} onClick={toggle} />
       </Wrapper>
     )}
