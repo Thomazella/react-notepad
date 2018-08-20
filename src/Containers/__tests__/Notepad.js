@@ -20,9 +20,12 @@ test("state.isClosed starts true", () => {
 
 test("passes down deleteNote function", () => {
   const wrapper = mount(<Notepad />);
-  expect(wrapper.find(NotepadView).prop("deleteNote")).toEqual(
-    expect.any(Function)
-  );
+  expect(
+    wrapper
+      .find(NotepadView)
+      .at(0)
+      .prop("deleteNote")
+  ).toEqual(expect.any(Function));
 });
 
 test("passes down toggle function", () => {
@@ -37,6 +40,7 @@ test("toggles open/closed state", () => {
   wrapper
     .find(NotepadToggle)
     .find(NotepadButton)
+    .at(0)
     .simulate("click");
   expect(wrapper.find(NotepadToggle).prop("closed")).toBe(false);
 });
@@ -45,7 +49,13 @@ test("deletes notes from state", () => {
   const wrapper = mount(<Notepad initialState={{ notes: [1] }} />);
   wrapper
     .find(Note)
-    .find("button")
+    .find(NotepadButton)
+    .at(0)
     .simulate("click");
-  expect(wrapper.find(NotepadView).prop("notes")).toEqual([]);
+  expect(
+    wrapper
+      .find(NotepadView)
+      .at(0)
+      .prop("notes")
+  ).toEqual([]);
 });

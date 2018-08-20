@@ -22,7 +22,7 @@ const actions = {
   deleteNote: targetNote => state => ({
     notes: state.notes.filter(note => note !== targetNote)
   }),
-  addNote: newNote => state => ({ notes: !state.notes.push(newNote) })
+  addNote: newNote => state => ({ notes: [...state.notes, newNote] })
 };
 
 const Notepad = props => (
@@ -31,12 +31,18 @@ const Notepad = props => (
     actions={actions}
     {...props}
   >
-    {({ notes, isClosed, toggle, deleteNote }) => (
+    {({ notes, isClosed, toggle, deleteNote, addNote }) => (
       <Wrapper>
         <MainView>
           <NotepadView notes={notes} deleteNote={deleteNote} />
         </MainView>
-        <NotepadToggle closed={isClosed} onClick={toggle} />
+        <NotepadToggle
+          closed={isClosed}
+          onClick={toggle}
+          notes={notes}
+          deleteNote={deleteNote}
+          addNote={addNote}
+        />
       </Wrapper>
     )}
   </Container>
