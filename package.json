@@ -8,7 +8,8 @@
     "start": "yarn parcel public/index.html --out-dir build --no-cache",
     "build": "yarn clean && yarn parcel build public/index.html --public-url ./ --out-dir build",
     "lint": "eslint src",
-    "clean": "yarn rimraf build && yarn rimraf .cache"
+    "clean": "yarn rimraf build && yarn rimraf .cache",
+    "test": "yarn jest"
   },
   "repository": {
     "type": "git",
@@ -32,7 +33,9 @@
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-icons": "^3.0.5",
-    "reakit": "^0.14.2"
+    "reakit": "^0.14.2",
+    "enzyme": "^3.4.4",
+    "enzyme-adapter-react-16": "^1.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

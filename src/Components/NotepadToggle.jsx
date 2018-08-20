@@ -1,20 +1,8 @@
-import { styled, Button, Flex } from "reakit";
+import { styled, Flex } from "reakit";
 import PropTypes from "prop-types";
-import { TiArrowMaximise, TiArrowMinimise } from "react-icons/ti";
 import React from "react";
-
-const NotepadButton = styled(Button)`
-  border-radius: 50%;
-  border-style: none;
-  color: white;
-  background-color: #9e3be5;
-  height: 3.25em;
-  width: 3.25em;
-  svg {
-    width: 2em;
-    height: 2em;
-  }
-`;
+import { TiArrowMaximise, TiArrowMinimise } from "react-icons/ti";
+import NotepadButton from "./NotepadButton";
 
 const Wrapper = styled(Flex)`
   justify-content: flex-end;

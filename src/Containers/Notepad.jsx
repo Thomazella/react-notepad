@@ -25,10 +25,11 @@ const actions = {
   addNote: newNote => state => ({ notes: !state.notes.push(newNote) })
 };
 
-const Notepad = () => (
+const Notepad = props => (
   <Container
     initialState={{ notes: ["foo", "bar"], isClosed: true }}
     actions={actions}
+    {...props}
   >
     {({ notes, isClosed, toggle, deleteNote }) => (
       <Wrapper>
