@@ -35,7 +35,7 @@ const FloatingView = styled(Popover)`
   background-color: rgba(221, 221, 221, 0.95);
 `;
 
-const NotepadToggle = props => {
+const ModalToggle = props => {
   const { onClick, closed, notes, deleteNote, addNote } = props;
   return (
     <WrapperBottom>
@@ -57,14 +57,14 @@ const NotepadToggle = props => {
   );
 };
 
-NotepadToggle.propTypes = {
+ModalToggle.propTypes = {
   closed: PropTypes.bool,
   onClick: PropTypes.func
 };
 
-NotepadToggle.defaultProps = {
+ModalToggle.defaultProps = {
   closed: true,
   onClick: () => null
 };
 
-export default NotepadToggle;
+export default ModalToggle;

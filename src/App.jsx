@@ -1,6 +1,6 @@
 import React from "react";
 import { Provider } from "reakit";
-import Notepad from "./Containers/Notepad";
+import Notepad from "./Components/Notepad";
 
 const App = (
   <Provider>

@@ -47,3 +47,29 @@ I'm using it because it's trivial to set up. Very good for small projects.
 #### Jest, rimraf
 
 My testing framework and a tool to delete directories from package.json scripts.
+
+## Day 2
+
+- use Reakit's Container for state
+- implement note delete functionality
+- installed enzyme, added tests
+- adjusted styles
+- implemented modal dialog
+- register repo on Netlify to auto deploy from `master`
+
+_[first commit](https://github.com/Thomazella/react-notepad/commit/27273d6816e920ea628a369100e0390da16b54f0)_,
+_[last commit](https://github.com/Thomazella/react-notepad/commit/311b28758b48e31c8fa8db0c49febc9b291085b3)_
+
+### Thoughts
+
+I had forgotten Reakit has containers to manage state, so I refactored to use them.
+Code looks more declarative and readable now.
+I also forgot I needed enzyme to test React components.
+I installed it, set it up, and wrote tests for everything already implemented.
+The hardest part was using enzyme to test things. [Their api](https://github.com/airbnb/enzyme/tree/master/docs/api) makes some simple things, like setting props on a component, hard. Note to self: Try `react-testing-library` in the future.
+
+New dependencies:
+
+#### Enzyme and plugins
+
+For testing React Components.

@@ -2,7 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import Notepad from "../Notepad";
 import NotepadView from "../../Components/NotepadView";
-import NotepadToggle from "../../Components/NotepadToggle";
+import ModalToggle from "../../Components/ModalToggle";
 import NotepadButton from "../../Components/NotepadButton";
 import Note from "../../Components/Note";
 import NewNote from "../../Components/NewNote";
@@ -11,12 +11,12 @@ import NewNote from "../../Components/NewNote";
 
 test("state.notes starts empty", () => {
   const wrapper = mount(<Notepad />);
-  expect(wrapper.find(NotepadToggle).prop("notes")).toEqual([]);
+  expect(wrapper.find(ModalToggle).prop("notes")).toEqual([]);
 });
 
 test("state.isClosed starts true", () => {
   const wrapper = mount(<Notepad />);
-  expect(wrapper.find(NotepadToggle).prop("closed")).toBe(true);
+  expect(wrapper.find(ModalToggle).prop("closed")).toBe(true);
 });
 
 test("passes down deleteNote function", () => {
@@ -31,14 +31,14 @@ test("passes down deleteNote function", () => {
 
 test("passes down toggle function", () => {
   const wrapper = mount(<Notepad />);
-  expect(wrapper.find(NotepadToggle).prop("onClick")).toEqual(
+  expect(wrapper.find(ModalToggle).prop("onClick")).toEqual(
     expect.any(Function)
   );
 });
 
 test("passes down addNote function", () => {
   const wrapper = mount(<Notepad />);
-  expect(wrapper.find(NotepadToggle).prop("addNote")).toEqual(
+  expect(wrapper.find(ModalToggle).prop("addNote")).toEqual(
     expect.any(Function)
   );
 });
@@ -46,11 +46,11 @@ test("passes down addNote function", () => {
 test("toggles open/closed state", () => {
   const wrapper = mount(<Notepad />);
   wrapper
-    .find(NotepadToggle)
+    .find(ModalToggle)
     .find(NotepadButton)
     .at(0)
     .simulate("click");
-  expect(wrapper.find(NotepadToggle).prop("closed")).toBe(false);
+  expect(wrapper.find(ModalToggle).prop("closed")).toBe(false);
 });
 
 test("deletes notes from state", () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Base, styled, Container } from "reakit";
 import NotepadView from "../Components/NotepadView";
-import NotepadToggle from "../Components/NotepadToggle";
+import ModalToggle from "./ModalToggle";
 
 const MainView = styled(Base)`
   max-width: 100%;
@@ -36,7 +36,7 @@ const Notepad = props => (
         <MainView>
           <NotepadView notes={notes} deleteNote={deleteNote} />
         </MainView>
-        <NotepadToggle
+        <ModalToggle
           closed={isClosed}
           onClick={toggle}
           notes={notes}
