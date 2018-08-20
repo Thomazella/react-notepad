@@ -19,15 +19,15 @@ const Wrapper = styled(Base)`
 
 const actions = {
   toggle: () => state => ({ isClosed: !state.isClosed }),
-  deleteNote: targetNote => state => ({
-    notes: state.notes.filter(note => note !== targetNote)
+  deleteNote: noteIndex => state => ({
+    notes: state.notes.filter((note, i) => i !== noteIndex)
   }),
   addNote: newNote => state => ({ notes: [...state.notes, newNote] })
 };
 
 const Notepad = props => (
   <Container
-    initialState={{ notes: ["foo", "bar"], isClosed: true }}
+    initialState={{ notes: [], isClosed: true }}
     actions={actions}
     {...props}
   >

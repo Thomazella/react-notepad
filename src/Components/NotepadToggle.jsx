@@ -1,13 +1,10 @@
-import { styled, Flex, Popover, Input } from "reakit";
+import { styled, Flex, Popover } from "reakit";
 import PropTypes from "prop-types";
 import React from "react";
-import {
-  TiArrowMaximise,
-  TiArrowMinimise,
-  TiArrowRightThick
-} from "react-icons/ti";
+import { TiArrowMaximise, TiArrowMinimise } from "react-icons/ti";
 import NotepadButton from "./NotepadButton";
 import NotepadView from "./NotepadView";
+import NewNote from "./NewNote";
 
 const WrapperBottom = styled(Flex)`
   justify-content: flex-end;
@@ -26,27 +23,16 @@ const WrapperVertical = styled(Flex)`
   align-items: flex-start;
 `;
 
-const WrapperInput = styled(Flex)`
-  position: absolute;
-  align-items: center;
-  margin-bottom: 0.5em;
-  bottom: 0;
-`;
-
-const ToggleButton = styled(NotepadButton)`
+export const ToggleButton = styled(NotepadButton)`
   color: white;
   background-color: #9e3be5;
-`;
-
-const SubmitButton = styled(ToggleButton)`
-  transform: scale(0.7);
 `;
 
 const FloatingView = styled(Popover)`
   width: 100%;
   min-height: 60%;
   min-height: 60vh;
-  background-color: rgba(86.7%, 86.7%, 86.7%, 0.95);
+  background-color: rgba(221, 221, 221, 0.95);
 `;
 
 const NotepadToggle = props => {
@@ -60,14 +46,9 @@ const NotepadToggle = props => {
               {closed ? <TiArrowMaximise /> : <TiArrowMinimise />}
             </ToggleButton>
             <FloatingView placement="bottom-end" hideOnClickOutside {...config}>
-              <Popover.Arrow color="#ddd" />
               <NotepadView notes={notes} deleteNote={deleteNote} />
-              <WrapperInput>
-                <Input placeholder="Add a note" outlineColor="#9e3be5" />
-                <SubmitButton onClick={() => addNote("foobar")}>
-                  <TiArrowRightThick />
-                </SubmitButton>
-              </WrapperInput>
+              <NewNote addNote={addNote} />
+              <Popover.Arrow color="#ddd" />
             </FloatingView>
           </WrapperVertical>
         )}
