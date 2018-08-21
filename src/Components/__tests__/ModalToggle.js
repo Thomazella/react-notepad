@@ -16,6 +16,7 @@ test("renders closed icon", () => {
       <ModalToggle />
     </Provider>
   );
+
   expect(wrapper.containsMatchingElement(<ClosedIcon />)).toBe(true);
 });
 
@@ -25,6 +26,7 @@ test("renders opened icon", () => {
       <ModalToggle />
     </Provider>
   );
+
   expect(wrapper.containsMatchingElement(<OpenedIcon />)).toBe(true);
 });
 
@@ -34,15 +36,22 @@ test("defaults to being closed", () => {
       <ModalToggle />
     </Provider>
   );
+
   expect(wrapper.containsMatchingElement(<ClosedIcon />)).toBe(true);
 });
 
-test("clicks change state", () => {
+test("clicks toggle icons", () => {
   const wrapper = mount(
     <Provider>
       <ModalToggle />
     </Provider>
   );
-  wrapper.find(NotepadButton).forEach(B => B.simulate("click"));
+
+  wrapper.find(NotepadButton).forEach(button => button.simulate("click"));
+
   expect(wrapper.containsMatchingElement(<OpenedIcon />)).toBe(true);
+
+  wrapper.find(NotepadButton).forEach(button => button.simulate("click"));
+
+  expect(wrapper.containsMatchingElement(<OpenedIcon />)).toBe(false);
 });

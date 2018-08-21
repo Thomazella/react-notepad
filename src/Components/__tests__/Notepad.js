@@ -23,9 +23,10 @@ test("state.notes starts empty", () => {
   expect(result).toEqual([]);
 });
 
-test("doesn't delete notes with equal content", () => {
+test("doesn't delete identic notes", () => {
+  const mock = ["foo", "foo", "foo"];
   const wrapper = mount(
-    <Provider initialState={{ notepad: { notes: ["foo", "foo", "foo"] } }}>
+    <Provider initialState={{ notepad: { notes: mock } }}>
       <Notepad />
     </Provider>
   );
@@ -45,6 +46,7 @@ test("doesn't delete notes with equal content", () => {
 });
 
 test("adds note to state", () => {
+  jest.useFakeTimers();
   const wrapper = mount(
     <Provider>
       <Notepad />
@@ -61,10 +63,59 @@ test("adds note to state", () => {
     .find(NotepadButton)
     .simulate("click");
 
-  const result = wrapper
+  jest.runAllTimers();
+  wrapper.update();
+
+  expect(wrapper.text()).toMatch(/foo/);
+});
+
+test("adds notes with delay", () => {
+  jest.useFakeTimers();
+  const wrapper = mount(
+    <Provider>
+      <Notepad />
+    </Provider>
+  );
+
+  wrapper
+    .find(NewNote)
+    .find("input")
+    .simulate("change", { target: { value: "foo" } });
+
+  wrapper
+    .find(NewNote)
+    .find(NotepadButton)
+    .simulate("click");
+
+  jest.advanceTimersByTime(1000);
+  wrapper.update();
+
+  let modal = wrapper
+    .find(NotepadView)
+    .at(1)
+    .text();
+
+  let home = wrapper
     .find(NotepadView)
     .at(0)
-    .prop("notes");
+    .text();
 
-  expect(result).toEqual(["foo"]);
+  expect(modal).toMatch(/foo/);
+  expect(home).toBe(null);
+
+  jest.advanceTimersByTime(1000);
+  wrapper.update();
+
+  modal = wrapper
+    .find(NotepadView)
+    .at(1)
+    .text();
+
+  home = wrapper
+    .find(NotepadView)
+    .at(0)
+    .text();
+
+  expect(home).toMatch(/foo/);
+  expect(modal).toMatch(/foo/);
 });

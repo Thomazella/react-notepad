@@ -10,17 +10,19 @@ import Note from "../Note";
 
 test("renders Notes", () => {
   const wrapper = mount(<NotepadView notes={[1]} />);
-  expect(wrapper.contains(Note)).toBeTruthy();
+
+  expect(wrapper.contains(Note)).toBe(true);
 });
 
 test("renders as many notes as passed", () => {
   const wrapper = mount(<NotepadView notes={[1, 2, 3]} />);
+
   expect(wrapper.children().length).toEqual(3);
 });
 
 test("deletes notes from state", () => {
   const wrapper = mount(
-    <Provider initialState={{ notepad: { notes: [1] } }}>
+    <Provider initialState={{ notepad: { notes: ["foo"] } }}>
       <NoteContainer context="notepad">
         {({ notes, deleteNote }) => (
           <NotepadView notes={notes} deleteNote={deleteNote} />
@@ -28,6 +30,8 @@ test("deletes notes from state", () => {
       </NoteContainer>
     </Provider>
   );
-  wrapper.find(NotepadButton).forEach(B => B.simulate("click"));
-  expect(wrapper.find(NotepadView).prop("notes")).toEqual([]);
+
+  wrapper.find(NotepadButton).forEach(button => button.simulate("click"));
+
+  expect(wrapper.find(NotepadView).text()).toBe(null);
 });

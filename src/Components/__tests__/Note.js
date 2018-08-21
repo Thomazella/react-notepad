@@ -7,7 +7,9 @@ import Note from "../Note";
 test("delete button", () => {
   const mock = jest.fn();
   const wrapper = mount(<Note deleteNote={mock} />);
+
   wrapper.find("button").simulate("click");
+
   expect(mock).toHaveBeenCalledTimes(1);
 });
 
@@ -17,5 +19,6 @@ test("renders children", () => {
       <span />
     </Note>
   );
-  expect(wrapper.contains(<span />)).toBeTruthy();
+
+  expect(wrapper.find("span").length).toBe(1);
 });
