@@ -1,7 +1,7 @@
 import { styled, Flex, Popover } from "reakit";
-import PropTypes from "prop-types";
 import React from "react";
 import { TiArrowMaximise, TiArrowMinimise } from "react-icons/ti";
+import NoteContainer from "../Containers/NoteContainer";
 import NotepadButton from "./NotepadButton";
 import NotepadView from "./NotepadView";
 import NewNote from "./NewNote";
@@ -35,36 +35,35 @@ const FloatingView = styled(Popover)`
   background-color: rgba(221, 221, 221, 0.95);
 `;
 
-const ModalToggle = props => {
-  const { onClick, closed, notes, deleteNote, addNote } = props;
-  return (
-    <WrapperBottom>
-      <Popover.Container>
-        {config => (
-          <WrapperVertical>
-            <ToggleButton as={Popover.Toggle} onClick={onClick} {...config}>
-              {closed ? <TiArrowMaximise /> : <TiArrowMinimise />}
-            </ToggleButton>
-            <FloatingView placement="bottom-end" hideOnClickOutside {...config}>
-              <NotepadView notes={notes} deleteNote={deleteNote} />
-              <NewNote addNote={addNote} />
-              <Popover.Arrow color="#ddd" />
-            </FloatingView>
-          </WrapperVertical>
+const ModalToggle = props => (
+  <Popover.Container>
+    {config => (
+      <NoteContainer context="notepad">
+        {({ toggle, closed, notes, deleteNote, addNote }) => (
+          <WrapperBottom>
+            <WrapperVertical>
+              <ToggleButton
+                as={Popover.Toggle}
+                onClick={() => toggle()}
+                {...config}
+              >
+                {closed ? <TiArrowMaximise /> : <TiArrowMinimise />}
+              </ToggleButton>
+              <FloatingView
+                placement="bottom-end"
+                hideOnClickOutside
+                {...config}
+              >
+                <NotepadView notes={notes} deleteNote={deleteNote} {...props} />
+                <NewNote addNote={addNote} />
+                <Popover.Arrow color="#ddd" />
+              </FloatingView>
+            </WrapperVertical>
+          </WrapperBottom>
         )}
-      </Popover.Container>
-    </WrapperBottom>
-  );
-};
-
-ModalToggle.propTypes = {
-  closed: PropTypes.bool,
-  onClick: PropTypes.func
-};
-
-ModalToggle.defaultProps = {
-  closed: true,
-  onClick: () => null
-};
+      </NoteContainer>
+    )}
+  </Popover.Container>
+);
 
 export default ModalToggle;

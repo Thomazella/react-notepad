@@ -1,6 +1,7 @@
 import React from "react";
-import { Base, styled, Container } from "reakit";
+import { Base, styled } from "reakit";
 import NotepadView from "../Components/NotepadView";
+import NoteContainer from "../Containers/NoteContainer";
 import ModalToggle from "./ModalToggle";
 
 const MainView = styled(Base)`
@@ -17,35 +18,17 @@ const Wrapper = styled(Base)`
   min-width: 100vw;
 `;
 
-const actions = {
-  toggle: () => state => ({ isClosed: !state.isClosed }),
-  deleteNote: noteIndex => state => ({
-    notes: state.notes.filter((note, i) => i !== noteIndex)
-  }),
-  addNote: newNote => state => ({ notes: [...state.notes, newNote] })
-};
-
 const Notepad = props => (
-  <Container
-    initialState={{ notes: [], isClosed: true }}
-    actions={actions}
-    {...props}
-  >
-    {({ notes, isClosed, toggle, deleteNote, addNote }) => (
-      <Wrapper>
-        <MainView>
-          <NotepadView notes={notes} deleteNote={deleteNote} />
-        </MainView>
-        <ModalToggle
-          closed={isClosed}
-          onClick={toggle}
-          notes={notes}
-          deleteNote={deleteNote}
-          addNote={addNote}
-        />
-      </Wrapper>
-    )}
-  </Container>
+  <Wrapper>
+    <MainView>
+      <NoteContainer context="notepad">
+        {({ notes, deleteNote }) => (
+          <NotepadView notes={notes} deleteNote={deleteNote} {...props} />
+        )}
+      </NoteContainer>
+    </MainView>
+    <ModalToggle {...props} />
+  </Wrapper>
 );
 
 export default Notepad;

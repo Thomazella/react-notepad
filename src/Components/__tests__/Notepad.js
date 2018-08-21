@@ -1,94 +1,70 @@
 import React from "react";
 import { mount } from "enzyme";
+import { Provider } from "reakit";
 import Notepad from "../Notepad";
-import NotepadView from "../../Components/NotepadView";
-import ModalToggle from "../../Components/ModalToggle";
-import NotepadButton from "../../Components/NotepadButton";
-import Note from "../../Components/Note";
-import NewNote from "../../Components/NewNote";
+import NotepadView from "../NotepadView";
+import NotepadButton from "../NotepadButton";
+import Note from "../Note";
+import NewNote from "../NewNote";
 
 /* eslint-disable react/jsx-filename-extension */
 
 test("state.notes starts empty", () => {
-  const wrapper = mount(<Notepad />);
-  expect(wrapper.find(ModalToggle).prop("notes")).toEqual([]);
-});
-
-test("state.isClosed starts true", () => {
-  const wrapper = mount(<Notepad />);
-  expect(wrapper.find(ModalToggle).prop("closed")).toBe(true);
-});
-
-test("passes down deleteNote function", () => {
-  const wrapper = mount(<Notepad />);
-  expect(
-    wrapper
-      .find(NotepadView)
-      .at(0)
-      .prop("deleteNote")
-  ).toEqual(expect.any(Function));
-});
-
-test("passes down toggle function", () => {
-  const wrapper = mount(<Notepad />);
-  expect(wrapper.find(ModalToggle).prop("onClick")).toEqual(
-    expect.any(Function)
+  const wrapper = mount(
+    <Provider>
+      <Notepad />
+    </Provider>
   );
-});
-
-test("passes down addNote function", () => {
-  const wrapper = mount(<Notepad />);
-  expect(wrapper.find(ModalToggle).prop("addNote")).toEqual(
-    expect.any(Function)
-  );
-});
-
-test("toggles open/closed state", () => {
-  const wrapper = mount(<Notepad />);
-  wrapper
-    .find(ModalToggle)
-    .find(NotepadButton)
+  const result = wrapper
+    .find(NotepadView)
     .at(0)
-    .simulate("click");
-  expect(wrapper.find(ModalToggle).prop("closed")).toBe(false);
+    .prop("notes");
+
+  expect(result).toEqual([]);
 });
 
-test("deletes notes from state", () => {
-  const wrapper = mount(<Notepad initialState={{ notes: [1] }} />);
-  wrapper
+test("doesn't delete notes with equal content", () => {
+  const wrapper = mount(
+    <Provider initialState={{ notepad: { notes: ["foo", "foo", "foo"] } }}>
+      <Notepad />
+    </Provider>
+  );
+  const button = wrapper
     .find(Note)
     .find(NotepadButton)
+    .at(0);
+
+  button.simulate("click");
+
+  const result = wrapper
+    .find(NotepadView)
     .at(0)
-    .simulate("click");
-  expect(
-    wrapper
-      .find(NotepadView)
-      .at(0)
-      .prop("notes")
-  ).toEqual([]);
+    .prop("notes");
+
+  expect(result).toEqual(["foo", "foo"]);
 });
 
-test("deletes not based on note content", () => {
-  const wrapper = mount(<Notepad initialState={{ notes: [1, 1, 1] }} />);
-  wrapper
-    .find(Note)
-    .find(NotepadButton)
-    .at(0)
-    .simulate("click");
-  expect(
-    wrapper
-      .find(NotepadView)
-      .at(0)
-      .prop("notes")
-  ).toEqual([1, 1]);
-});
+test("adds note to state", () => {
+  const wrapper = mount(
+    <Provider>
+      <Notepad />
+    </Provider>
+  );
 
-test("adds notes to state", () => {
-  const mock = jest.fn();
-  const wrapper = mount(<Notepad actions={{ addNote: () => () => mock() }} />);
   wrapper
     .find(NewNote)
-    .find("button")
+    .find("input")
+    .simulate("change", { target: { value: "foo" } });
+
+  wrapper
+    .find(NewNote)
+    .find(NotepadButton)
     .simulate("click");
-  expect(mock).toHaveBeenCalledTimes(1);
+
+  const result = wrapper
+    .find(NotepadView)
+    .at(0)
+    .prop("notes");
+
+  expect(result).toEqual(["foo"]);
 });
