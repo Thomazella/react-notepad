@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/Thomazella/react-notepad#readme",
   "dependencies": {
+    "emoji-aware": "^3.0.4",
     "enzyme": "^3.4.4",
     "enzyme-adapter-react-16": "^1.2.0",
     "prop-types": "^15.6.2",

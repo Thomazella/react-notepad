@@ -66,10 +66,81 @@ I had forgotten Reakit has containers to manage state, so I refactored to use th
 Code looks more declarative and readable now.
 I also forgot I needed enzyme to test React components.
 I installed it, set it up, and wrote tests for everything already implemented.
-The hardest part was using enzyme to test things. [Their api](https://github.com/airbnb/enzyme/tree/master/docs/api) makes some simple things, like setting props on a component, hard. Note to self: Try `react-testing-library` in the future.
+Had to check the enzyme docs a lot and try different approaches to testing things.
+Note to self: Try `react-testing-library` in the future.
 
 New dependencies:
 
 #### Enzyme and plugins
 
 For testing React Components.
+
+## Day 3
+
+- Renamed some things, moved others
+- Implemented adding notes, added tests.
+- Started thinking on the best way to do the async view update.
+
+_[first commit](https://github.com/Thomazella/react-notepad/commit/2609d60030632967322fad5f5be582c4c6321b22)_,
+_[last commit](https://github.com/Thomazella/react-notepad/commit/ddb17516dfd781c85460136994cd08e6baccb158)_
+
+### Thoughts
+
+I wanted to find a good and simple solution.
+I already had an `addNote` function hadling the `onClick` event.
+I sent the new note to the state container that would then update the props on the views.
+Like this:
+```jsx
+onClick={() => addNote(note)}
+```
+Something like this:
+```jsx
+onClick={() => setTimeout(() => addNote(note), 1000)}
+```
+Wasn't good because it delayed both views from updating.
+But I started with that.
+First idea was to manage a separate state entry for each view.
+Then I thought about adding some logic inside each view, so they would take a `delay` prop.
+```jsx
+<View delay={1000}>
+  // children
+</View>
+```
+I think that API is quite nice, but I wasn't sure about the best way to implement it.
+I'd have to manage a timeout inside the component, or a clock.
+Maybe the clock should be on the container, to guarantee multiple views would be synced.
+I did some experiments with `async/await` inside the components.
+At this point it seemed the first idea was simpler.
+
+## Day 4
+
+- Implemented the async view update
+- Changed container to use React Context
+- Worked on tests
+- Implemented note errors UI
+- Implemented empty and 100 chars validations
+
+### Thoughts
+
+I followed through with the first idea for the async view update.
+Instead of `addNote` setting the state directly, it's curried like this:
+```jsx
+const addNote = newNote => ({ setState }) => {
+  // 1s setTimeout
+  // 2s setTimeout
+}
+```
+Reakit's implementation passes `setState` as a parameter, which is called inside `setTimeout` to set the state to `newNote`
+Also changed the code to use React Context, to pass less props around.
+I should refactor this later, maybe use promises.
+
+## Day 5
+
+- Implemented emoji validation
+- Worked on tests
+
+New dependencies:
+
+#### emoji-aware
+
+For managing emoji.
