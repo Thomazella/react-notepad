@@ -4,28 +4,25 @@ import { Container } from "reakit";
 const actions = {
   toggle: () => state => ({ closed: !state.closed }),
   deleteNote: noteIndex => state => {
-    const { notes, modalNotes } = state;
-    const newState = {};
-    newState.notes = notes && notes.filter((note, i) => i !== noteIndex);
-    newState.modalNotes =
-      modalNotes && modalNotes.filter((note, i) => i !== noteIndex);
-    return newState;
+    const deleteAtIndex = (key, index) =>
+      state[key] && {
+        [key]: [...state[key].slice(0, index), ...state[key].slice(index + 1)]
+      };
+
+    return Object.assign(
+      deleteAtIndex("notes", noteIndex),
+      deleteAtIndex("modalNotes", noteIndex)
+    );
   }
 };
 
 const effects = {
   addNote: newNote => ({ setState }) => {
-    setTimeout(
-      () => setState(({ notes }) => ({ notes: [...notes, newNote] })),
-      2000
-    );
-    setTimeout(
-      () =>
-        setState(({ modalNotes }) => ({
-          modalNotes: [...modalNotes, newNote]
-        })),
-      1000
-    );
+    const update = key => () =>
+      setState(state => ({ [key]: [...state[key], newNote] }));
+
+    setTimeout(update("modalNotes"), 1000);
+    setTimeout(update("notes"), 2000);
   }
 };
 

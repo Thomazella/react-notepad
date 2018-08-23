@@ -88,7 +88,7 @@ _[last commit](https://github.com/Thomazella/react-notepad/commit/ddb17516dfd781
 
 I wanted to find a good and simple solution.
 I already had an `addNote` function hadling the `onClick` event.
-I sent the new note to the state container that would then update the props on the views.
+Then the new note was stored in the state container that would update the props on the views.
 Like this:
 ```jsx
 onClick={() => addNote(note)}
@@ -111,6 +111,7 @@ I'd have to manage a timeout inside the component, or a clock.
 Maybe the clock should be on the container, to guarantee multiple views would be synced.
 I did some experiments with `async/await` inside the components.
 At this point it seemed the first idea was simpler.
+The only downside is that having `n` views it would be necessary to maintain `n` state entries.
 
 ## Day 4
 
@@ -137,7 +138,8 @@ I should refactor this later, maybe use promises.
 ## Day 5
 
 - Implemented emoji validation
-- Worked on tests
+- Added tests
+- Small refactors on NoteContainer
 
 New dependencies:
 
