@@ -11,10 +11,7 @@ const WrapperBottom = styled(Flex)`
   align-items: center;
   position: fixed;
   bottom: 10%;
-  width: 63%;
-  @media (min-width: 756px) {
-    width: 80%;
-  }
+  width: 79%;
 `;
 
 const WrapperVertical = styled(Flex)`
@@ -24,15 +21,21 @@ const WrapperVertical = styled(Flex)`
 `;
 
 export const ToggleButton = styled(NotepadButton)`
-  color: white;
-  background-color: #9e3be5;
+  color: #011688;
+  background-color: #2effc3;
+  width: 3.5em;
+  height: 3.5em;
 `;
 
 const FloatingView = styled(Popover)`
   width: 100%;
   min-height: 60%;
   min-height: 60vh;
-  background-color: rgba(221, 221, 221, 0.95);
+  padding: 0.8em;
+  @media (min-width: 756px) {
+    padding: 2em;
+    max-width: 70%;
+  }
 `;
 
 const ModalToggle = props => (
@@ -60,7 +63,7 @@ const ModalToggle = props => (
                   {...props}
                 />
                 <NewNote addNote={addNote} />
-                <Popover.Arrow color="#ddd" />
+                <Popover.Arrow />
               </FloatingView>
             </WrapperVertical>
           </WrapperBottom>

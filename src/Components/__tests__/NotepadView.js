@@ -15,9 +15,9 @@ test("renders Notes", () => {
 });
 
 test("renders as many notes as passed", () => {
-  const wrapper = mount(<NotepadView notes={[1, 2, 3]} />);
+  const wrapper = mount(<NotepadView notes={["foo", "bar", "baz"]} />);
 
-  expect(wrapper.children().length).toEqual(3);
+  expect(wrapper.text()).toMatch(/foobarbaz/);
 });
 
 test("deletes notes from state", () => {

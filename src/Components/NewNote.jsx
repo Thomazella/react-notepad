@@ -1,19 +1,40 @@
 import React from "react";
 import { styled, Container, Flex, Input } from "reakit";
-import { TiArrowRightThick } from "react-icons/ti";
+import { MdArrowForward } from "react-icons/md";
 import NotepadButton from "./NotepadButton";
 
 const WrapperInput = styled(Flex)`
   position: absolute;
   align-items: center;
   margin-bottom: 0.5em;
-  bottom: 0;
+  bottom: 0.5em;
+  color: #011688;
+  width: 90%;
+  @media (min-width: 756px) {
+    width: 87%;
+    bottom: 1.5em;
+  }
+`;
+
+const TextInput = styled(Input)`
+  color: #011688;
+  min-height: 2.5em;
+  border-radius: 20px;
+  outline-style: none;
+  &:focus {
+    box-shadow: inset 0 0 999em rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const SubmitButton = styled(NotepadButton)`
-  color: white;
-  background-color: #9e3be5;
-  transform: scale(0.7);
+  height: 2.5em;
+  width: 2.5em;
+  border: 1px solid #b2b2c9;
+  margin-left: 0.5em;
+  background-color: #ffffff;
+  @media (min-width: 756px) {
+    margin-left: 1em;
+  }
 `;
 
 const actions = {
@@ -26,14 +47,13 @@ const NewNote = props => {
     <Container initialState={{ text: "" }} actions={actions} {...props}>
       {({ text, updateText }) => (
         <WrapperInput>
-          <Input
+          <TextInput
             value={text}
             placeholder="Add a note"
-            outlineColor="#9e3be5"
             onChange={event => updateText(event.target.value)}
           />
           <SubmitButton onClick={() => addNote(text)}>
-            <TiArrowRightThick />
+            <MdArrowForward />
           </SubmitButton>
         </WrapperInput>
       )}

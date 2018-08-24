@@ -5,7 +5,7 @@ import NoteContainer from "../Containers/NoteContainer";
 import ModalToggle from "./ModalToggle";
 
 const MainView = styled(Base)`
-  max-width: 100%;
+  width: 100%;
   @media (min-width: 756px) {
     max-width: 65%;
   }
@@ -13,18 +13,23 @@ const MainView = styled(Base)`
 
 const Wrapper = styled(Base)`
   background-color: #ffffff;
-  padding: 4rem;
+  padding: 2rem;
   min-height: 100vh;
   min-width: 100vw;
   font-family: "M PLUS 1p", Roboto, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: 500;
+  @media (min-width: 756px) {
+    padding: 4rem;
+  }
 `;
 
 const StyledParagraph = styled(Paragraph)`
   color: #ff5555;
   font-weight: 800;
-  margin-bottom: 2.6em;
   font-size: 2.3em;
+  &:not(:last-child) {
+    margin-bottom: 1em;
+  }
 `;
 
 const Notepad = props => (
