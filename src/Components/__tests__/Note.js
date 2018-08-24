@@ -15,13 +15,9 @@ test("delete button", () => {
 });
 
 test("renders children", () => {
-  const wrapper = mount(
-    <Note>
-      <span />
-    </Note>
-  );
+  const wrapper = mount(<Note>child</Note>);
 
-  expect(wrapper.find("span").length).toBe(1);
+  expect(wrapper.text()).toMatch(/child/);
 });
 
 test("emoji error", () => {

@@ -131,7 +131,9 @@ const addNote = newNote => ({ setState }) => {
   // 2s setTimeout
 }
 ```
-Reakit's implementation passes `setState` as a parameter, which is called inside `setTimeout` to set the state to `newNote`
+Reakit's implementation passes the `setState` function as a parameter, which is called inside `setTimeout`.
+It adds the new note to two state entries, one for each view, not at the same time.
+This triggers the update.
 Also changed the code to use React Context, to pass less props around.
 I should refactor this later, maybe use promises.
 
@@ -146,3 +148,12 @@ New dependencies:
 #### emoji-aware
 
 For managing emoji.
+
+## day 6
+
+- Started styling the app
+
+### Thoughts
+
+Since Sofia Pro wasn't free, I looked for a similar free font.
+
