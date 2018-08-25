@@ -6,15 +6,33 @@ import NotepadButton from "./NotepadButton";
 import BaseNote from "./BaseNote";
 
 const NoteBody = styled(BaseNote)`
-  padding: 5px 20px;
-  border-radius: 20px;
   background-color: #f5f5fc;
   color: black;
-  min-height: 40px;
-  letter-spacing: 0.02em;
+  padding: 5px 20px;
+  &:hover,
+  &:active,
+  &:focus {
+    background: #ffce0055;
+  }
 `;
 
-const ErrorMsg = BaseNote;
+const ErrorMsg = styled(BaseNote)`
+  padding: 5px 20px;
+  &:hover,
+  &:active,
+  &:focus {
+    color: #fcc;
+  }
+`;
+
+const ErrorWrapper = styled(BaseNote)`
+  flex-direction: column;
+  position: relative;
+  top: -0.9em;
+  color: #ffffff;
+  background-color: #ff5555;
+  border-width: 0;
+`;
 
 const DeleteButton = styled(NotepadButton)`
   color: #011688;
@@ -33,15 +51,6 @@ const DeleteButton = styled(NotepadButton)`
   &:focus {
     border-style: none;
   }
-`;
-
-const ErrorWrapper = styled(NoteBody)`
-  flex-direction: column;
-  position: relative;
-  top: -0.9em;
-  color: #ffffff;
-  background-color: #ff5555;
-  border-width: 0;
 `;
 
 const validate = (func, string) => {

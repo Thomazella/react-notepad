@@ -10,8 +10,8 @@ const WrapperBottom = styled(Flex)`
   justify-content: flex-end;
   align-items: center;
   position: fixed;
-  bottom: 6%;
-  width: 79%;
+  bottom: 4%;
+  width: 86%;
   z-index: 100;
 `;
 
@@ -24,25 +24,23 @@ const WrapperVertical = styled(Flex)`
 export const ToggleButton = styled(NotepadButton)`
   color: white;
   background-color: #333333;
-  width: 3.5em;
-  height: 3.5em;
+  width: 3.6em;
+  height: 3.6em;
   border-style: none;
   &:before {
-    background-color: #333333;
+    background: #333333;
     border-color: #333333;
   }
   &:hover,
   &:active,
   &:focus {
-    border: 1px solid #b2b2c9;
-    color: #011688;
+    border-style: none;
+    color: white;
   }
   &:active:before,
   &:focus:before,
   &:hover:before {
-    color: #011688;
-    transform: scale(2);
-    background-color: white;
+    background: #333333;
   }
 `;
 
@@ -83,6 +81,9 @@ const ModalToggle = props => (
               <ViewWrapper
                 placement="bottom-end"
                 hideOnClickOutside
+                fade
+                slide="top"
+                duration="0.3s"
                 {...config}
               >
                 <ModalView

@@ -22,8 +22,18 @@ const TextInput = styled(Input)`
   min-height: 2.5em;
   border-radius: 20px;
   outline-style: none;
+  line-height: 2.5em;
+  z-index: 10;
+  overflow: hidden;
+  transition-timing-function: ease-out;
+  transition-duration: 0.3s;
+  transition-property: color, transform, background-color, border;
+  &:hover,
+  &:active,
   &:focus {
-    box-shadow: inset 0 0 999em rgba(0, 0, 0, 0.1);
+    background: #ffce0055;
+    color: #333;
+    border-color: transparent;
   }
 `;
 
@@ -31,7 +41,7 @@ const SubmitButton = styled(NotepadButton)`
   height: 2.5em;
   width: 2.5em;
   border: 1px solid #b2b2c9;
-  margin-left: 0.5em 0.6em 0.6em 0.8em;
+  margin: 0.5em 0.6em 0.6em 0.8em;
   background-color: #ffffff;
   @media (min-width: 756px) {
     margin-left: 1em;
