@@ -156,4 +156,6 @@ For managing emoji.
 ### Thoughts
 
 Since Sofia Pro wasn't free, I looked for a similar free font.
+Record Union has an unique color palette, this was fun.
+Made some changes to `.babelrc` to remove dead browsers increasing bundle size.
 
