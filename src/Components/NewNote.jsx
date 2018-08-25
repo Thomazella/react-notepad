@@ -36,11 +36,18 @@ const SubmitButton = styled(NotepadButton)`
   @media (min-width: 756px) {
     margin-left: 1em;
   }
+  &:hover,
+  &:active,
+  &:focus {
+    border-style: none;
+  }
 `;
 
 const actions = {
   updateText: newText => () => ({ text: newText })
 };
+
+const empty = "";
 
 const NewNote = ({ addNote }, ...props) => (
   <Container initialState={{ text: "" }} actions={actions} {...props}>
@@ -52,7 +59,12 @@ const NewNote = ({ addNote }, ...props) => (
           onChange={event => updateText(event.target.value)}
           onKeyDown={({ key }) => key === "Enter" && addNote(text)}
         />
-        <SubmitButton onClick={() => addNote(text)}>
+        <SubmitButton
+          onClick={() => {
+            addNote(text);
+            updateText(empty);
+          }}
+        >
           <MdArrowForward />
         </SubmitButton>
       </WrapperInput>

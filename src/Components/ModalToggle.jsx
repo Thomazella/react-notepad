@@ -12,6 +12,7 @@ const WrapperBottom = styled(Flex)`
   position: fixed;
   bottom: 6%;
   width: 79%;
+  z-index: 100;
 `;
 
 const WrapperVertical = styled(Flex)`
@@ -25,6 +26,24 @@ export const ToggleButton = styled(NotepadButton)`
   background-color: #333333;
   width: 3.5em;
   height: 3.5em;
+  border-style: none;
+  &:before {
+    background-color: #333333;
+    border-color: #333333;
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    border: 1px solid #b2b2c9;
+    color: #011688;
+  }
+  &:active:before,
+  &:focus:before,
+  &:hover:before {
+    color: #011688;
+    transform: scale(2);
+    background-color: white;
+  }
 `;
 
 const ViewWrapper = styled(Popover)`
@@ -32,6 +51,7 @@ const ViewWrapper = styled(Popover)`
   min-height: 60%;
   min-height: 60vh;
   padding: 0.8em;
+  z-index: 100;
   @media (min-width: 756px) {
     padding: 2em;
     max-width: 70%;

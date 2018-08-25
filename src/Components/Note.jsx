@@ -11,6 +11,7 @@ const NoteBody = styled(BaseNote)`
   background-color: #f5f5fc;
   color: black;
   min-height: 40px;
+  letter-spacing: 0.02em;
 `;
 
 const ErrorMsg = BaseNote;
@@ -22,9 +23,15 @@ const DeleteButton = styled(NotepadButton)`
   height: 1.5em;
   margin-top: 0.2em;
   margin-left: 1em;
+  border-style: none;
   svg {
     width: 1em;
     height: 1em;
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    border-style: none;
   }
 `;
 

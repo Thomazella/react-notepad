@@ -22,6 +22,7 @@ const Header = styled(Base)`
   background-color: #ff5454;
   color: white;
   min-height: 10vh;
+  letter-spacing: 0.02em;
   @media (min-width: 756px) {
     padding: 1em 4em;
   }
