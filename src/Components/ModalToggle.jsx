@@ -84,7 +84,7 @@ const ModalToggle = props => (
                 placement="bottom-end"
                 hideOnClickOutside
                 fade
-                slide="bottom"
+                slide="top"
                 duration="0.3s"
                 {...config}
               >
