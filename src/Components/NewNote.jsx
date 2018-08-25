@@ -11,6 +11,7 @@ const WrapperInput = styled(Flex)`
   width: 94%;
   background-color: white;
   padding: 0.5em 0.6em 0em 0em;
+  z-index: 20;
   @media (min-width: 756px) {
     width: 87%;
     bottom: 1.5em;

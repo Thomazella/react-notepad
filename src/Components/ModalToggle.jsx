@@ -44,7 +44,7 @@ export const ToggleButton = styled(NotepadButton)`
   }
 `;
 
-const ViewWrapper = styled(Popover)`
+const Modal = styled(Popover)`
   width: 100%;
   min-height: 60%;
   min-height: 60vh;
@@ -78,11 +78,11 @@ const ModalToggle = props => (
               >
                 {closed ? <TiArrowMaximise /> : <TiArrowMinimise />}
               </ToggleButton>
-              <ViewWrapper
+              <Modal
                 placement="bottom-end"
                 hideOnClickOutside
                 fade
-                slide="top"
+                slide="bottom"
                 duration="0.3s"
                 {...config}
               >
@@ -93,7 +93,7 @@ const ModalToggle = props => (
                 />
                 <NewNote addNote={addNote} />
                 <Popover.Arrow />
-              </ViewWrapper>
+              </Modal>
             </WrapperVertical>
           </WrapperBottom>
         )}

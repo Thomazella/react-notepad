@@ -163,8 +163,14 @@ Made some changes to `.babelrc` to remove dead browsers increasing bundle size.
 
 - Fixed styles on mobile
 - Fixed a bug related to `key` and uniqueIds on notes.
+- Started adding animations and transitions.
+- Added AnimatedNote
 
 ### Thoughts
 
 Moved note id generation to creation time.
 It used to be inside `render()` causing notes to get new ids on each render.
+For animations, styles and colors I used [the site](recordunion.com) for reference.
+Tried to keep it fun and loyal to the reference without losing contrast or doing it "too much."
+Made `AnimatedNote` as a wrapper around `Note`.
+It uses Reakit's `Hidden` to provide a cool animation for notes being added to the Notepad.

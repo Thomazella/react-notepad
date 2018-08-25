@@ -1,7 +1,7 @@
 import React from "react";
 import { Base } from "reakit";
 import PropTypes from "prop-types";
-import Note from "./Note";
+import AnimatedNote from "./AnimatedNote";
 
 const Wrapper = Base;
 
@@ -11,9 +11,9 @@ const NotepadView = ({ notes, deleteNote, ...props }) => {
   return (
     <Wrapper {...props}>
       {notes.map((note, index) => (
-        <Note key={note.id} deleteNote={deleteNote} index={index}>
+        <AnimatedNote key={note.id} deleteNote={deleteNote} index={index}>
           {note.text}
-        </Note>
+        </AnimatedNote>
       ))}
     </Wrapper>
   );
