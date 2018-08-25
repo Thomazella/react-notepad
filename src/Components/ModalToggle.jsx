@@ -21,13 +21,13 @@ const WrapperVertical = styled(Flex)`
 `;
 
 export const ToggleButton = styled(NotepadButton)`
-  color: #011688;
-  background-color: #2effc3;
+  color: white;
+  background-color: #333333;
   width: 3.5em;
   height: 3.5em;
 `;
 
-const FloatingView = styled(Popover)`
+const ViewWrapper = styled(Popover)`
   width: 100%;
   min-height: 60%;
   min-height: 60vh;
@@ -38,10 +38,18 @@ const FloatingView = styled(Popover)`
   }
 `;
 
+const ModalView = styled(NotepadView)`
+  max-height: 70vh;
+  overflow-y: auto;
+  @media (min-width: 756px) {
+    max-height: 50vh;
+  }
+`;
+
 const ModalToggle = props => (
   <Popover.Container>
     {config => (
-      <NoteContainer context="notepad">
+      <NoteContainer>
         {({ toggle, closed, modalNotes, deleteNote, addNote }) => (
           <WrapperBottom>
             <WrapperVertical>
@@ -52,19 +60,19 @@ const ModalToggle = props => (
               >
                 {closed ? <TiArrowMaximise /> : <TiArrowMinimise />}
               </ToggleButton>
-              <FloatingView
+              <ViewWrapper
                 placement="bottom-end"
                 hideOnClickOutside
                 {...config}
               >
-                <NotepadView
+                <ModalView
                   notes={modalNotes}
                   deleteNote={deleteNote}
                   {...props}
                 />
                 <NewNote addNote={addNote} />
                 <Popover.Arrow />
-              </FloatingView>
+              </ViewWrapper>
             </WrapperVertical>
           </WrapperBottom>
         )}

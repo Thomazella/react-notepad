@@ -37,14 +37,18 @@ const ErrorWrapper = styled(NoteBody)`
   border-width: 0;
 `;
 
+const validate = (func, string) => {
+  if (!string) return true;
+  return func(string);
+};
 const lengthNotZero = string => string && string.length !== 0;
-const lengthUnder100 = string => string && string.length <= 100;
-const noEmojiChars = string => string && onlyEmoji(String(string)).length === 0;
+const lengthUnder100 = string => string.length <= 100;
+const noEmojiChars = string => onlyEmoji(String(string)).length === 0;
 
 const Note = ({ children: noteText, deleteNote, index, ...props }) => {
   const meaningful = lengthNotZero(noteText);
-  const short = lengthUnder100(noteText);
-  const emojiFree = noEmojiChars(noteText);
+  const short = validate(lengthUnder100, noteText);
+  const emojiFree = validate(noEmojiChars, noteText);
   const ok = meaningful && short && emojiFree;
 
   return (

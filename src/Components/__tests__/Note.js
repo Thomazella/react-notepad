@@ -28,6 +28,8 @@ test("emoji error", () => {
   );
 
   expect(wrapper.text()).toMatch(/shouldn't contain emoji/);
+  expect(wrapper.text()).not.toMatch(/shouldn't exceed 100 characters/);
+  expect(wrapper.text()).not.toMatch(/shouldn't be empty/);
 });
 
 test("over 100 error", () => {
@@ -40,12 +42,16 @@ test("over 100 error", () => {
   );
 
   expect(wrapper.text()).toMatch(/shouldn't exceed 100 characters/);
+  expect(wrapper.text()).not.toMatch(/shouldn't contain emoji/);
+  expect(wrapper.text()).not.toMatch(/shouldn't be empty/);
 });
 
 test("empty error", () => {
   const wrapper = mount(<div>{React.createElement(Note, null, "")}</div>);
 
   expect(wrapper.text()).toMatch(/shouldn't be empty/);
+  expect(wrapper.text()).not.toMatch(/shouldn't contain emoji/);
+  expect(wrapper.text()).not.toMatch(/shouldn't exceed 100 characters/);
 });
 
 test("multiple errors", () => {
@@ -59,4 +65,5 @@ test("multiple errors", () => {
 
   expect(wrapper.text()).toMatch(/shouldn't exceed 100 characters/);
   expect(wrapper.text()).toMatch(/shouldn't contain emoji/);
+  expect(wrapper.text()).not.toMatch(/shouldn't be empty/);
 });

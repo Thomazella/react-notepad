@@ -35,6 +35,7 @@ const NoteContainer = incomingProps => {
       actions={actions}
       initialState={initialState}
       effects={effects}
+      context="notepad"
       {...props}
     >
       {children}

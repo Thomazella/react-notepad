@@ -23,7 +23,7 @@ test("renders as many notes as passed", () => {
 test("deletes notes from state", () => {
   const wrapper = mount(
     <Provider initialState={{ notepad: { notes: ["foo"] } }}>
-      <NoteContainer context="notepad">
+      <NoteContainer>
         {({ notes, deleteNote }) => (
           <NotepadView notes={notes} deleteNote={deleteNote} />
         )}

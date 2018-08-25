@@ -1,24 +1,16 @@
 import React from "react";
-import { Base, styled } from "reakit";
+import { Base } from "reakit";
 import PropTypes from "prop-types";
 import Note from "./Note";
 import getUniqueId from "../utils/getUniqueId";
 
-const Wrapper = styled(Base)`
-  display: block;
-  overflow-x: hidden;
-  overflow-y: auto;
-  max-height: 250px;
-  @media (min-width: 756px) {
-    max-height: 470px;
-  }
-`;
+const Wrapper = Base;
 
-const NotepadView = ({ notes, deleteNote }) => {
+const NotepadView = ({ notes, deleteNote, ...props }) => {
   if (!notes || !notes.length) return null;
 
   return (
-    <Wrapper>
+    <Wrapper {...props}>
       {notes.map((note, index) => (
         <Note key={getUniqueId("note")} deleteNote={deleteNote} index={index}>
           {note}
