@@ -2,7 +2,6 @@ import React from "react";
 import { Base } from "reakit";
 import PropTypes from "prop-types";
 import Note from "./Note";
-import getUniqueId from "../utils/getUniqueId";
 
 const Wrapper = Base;
 
@@ -12,8 +11,8 @@ const NotepadView = ({ notes, deleteNote, ...props }) => {
   return (
     <Wrapper {...props}>
       {notes.map((note, index) => (
-        <Note key={getUniqueId("note")} deleteNote={deleteNote} index={index}>
-          {note}
+        <Note key={note.id} deleteNote={deleteNote} index={index}>
+          {note.text}
         </Note>
       ))}
     </Wrapper>

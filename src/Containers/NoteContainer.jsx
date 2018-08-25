@@ -1,5 +1,6 @@
 import React from "react";
 import { Container } from "reakit";
+import getUniqueId from "../utils/getUniqueId";
 
 const actions = {
   toggle: () => state => ({ closed: !state.closed }),
@@ -17,9 +18,13 @@ const actions = {
 };
 
 const effects = {
-  addNote: newNote => ({ setState }) => {
+  addNote: newNoteText => ({ setState }) => {
     const update = key => () =>
-      setState(state => ({ [key]: [...state[key], newNote] }));
+      setState(state => {
+        const oldNotes = state[key];
+        const newNote = { id: getUniqueId("note"), text: newNoteText };
+        return { [key]: [...oldNotes, newNote] };
+      });
 
     setTimeout(update("modalNotes"), 1000);
     setTimeout(update("notes"), 2000);

@@ -9,20 +9,28 @@ import Note from "../Note";
 /* eslint-disable react/jsx-filename-extension */
 
 test("renders Notes", () => {
-  const wrapper = mount(<NotepadView notes={[1]} />);
+  const wrapper = mount(<NotepadView notes={[{ text: "foo", id: 1 }]} />);
 
   expect(wrapper.contains(Note)).toBe(true);
 });
 
 test("renders as many notes as passed", () => {
-  const wrapper = mount(<NotepadView notes={["foo", "bar", "baz"]} />);
+  const wrapper = mount(
+    <NotepadView
+      notes={[
+        { text: "foo", id: 1 },
+        { text: "bar", id: 2 },
+        { text: "baz", id: 3 }
+      ]}
+    />
+  );
 
   expect(wrapper.text()).toMatch(/foobarbaz/);
 });
 
 test("deletes notes from state", () => {
   const wrapper = mount(
-    <Provider initialState={{ notepad: { notes: ["foo"] } }}>
+    <Provider initialState={{ notepad: { notes: [{ text: "foo", id: 1 }] } }}>
       <NoteContainer>
         {({ notes, deleteNote }) => (
           <NotepadView notes={notes} deleteNote={deleteNote} />

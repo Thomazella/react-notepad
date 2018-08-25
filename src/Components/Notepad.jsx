@@ -14,7 +14,6 @@ const MainView = styled(Base)`
 const Wrapper = styled(Base)`
   background-color: #ffffff;
   padding: 2rem;
-  min-height: 85vh;
   min-width: 100%;
   font-family: "M PLUS 1p", Roboto, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: 500;

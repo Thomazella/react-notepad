@@ -149,7 +149,7 @@ New dependencies:
 
 For managing emoji.
 
-## day 6
+## Day 6
 
 - Started styling the app
 
@@ -159,3 +159,12 @@ Since Sofia Pro wasn't free, I looked for a similar free font.
 Record Union has an unique color palette, this was fun.
 Made some changes to `.babelrc` to remove dead browsers increasing bundle size.
 
+## Day 7
+
+- Fixed styles on mobile
+- Fixed a bug related to `key` and uniqueIds on notes.
+
+### Thoughts
+
+Moved note id generation to creation time.
+It used to be inside `render()` causing notes to get new ids on each render.

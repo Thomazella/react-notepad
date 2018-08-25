@@ -23,8 +23,12 @@ test("state.notes starts empty", () => {
   expect(result).toEqual([]);
 });
 
-test("doesn't delete identic notes", () => {
-  const mock = ["foo", "foo", "foo"];
+test("doesn't delete notes with identic tests", () => {
+  const mock = [
+    { text: "foo", id: 1 },
+    { text: "foo", id: 2 },
+    { text: "foo", id: 3 }
+  ];
   const wrapper = mount(
     <Provider initialState={{ notepad: { notes: mock } }}>
       <Notepad />
@@ -42,7 +46,7 @@ test("doesn't delete identic notes", () => {
     .at(0)
     .prop("notes");
 
-  expect(result).toEqual(["foo", "foo"]);
+  expect(result.length).toEqual(2);
 });
 
 test("adds note to state", () => {
