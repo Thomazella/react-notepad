@@ -6,14 +6,16 @@ import NotepadButton from "./NotepadButton";
 const WrapperInput = styled(Flex)`
   position: absolute;
   align-items: center;
+  width: 100%;
   bottom: 0.5em;
   color: #011688;
-  width: 94%;
   background-color: white;
-  padding: 0.5em 0.6em 0em 0em;
   z-index: 20;
+  margin-left: -0.8em;
+  padding: 0 0.8em;
   @media (min-width: 756px) {
-    width: 87%;
+    margin-left: -2em;
+    padding: 0 2em;
     bottom: 1.5em;
   }
 `;
@@ -42,7 +44,7 @@ const SubmitButton = styled(NotepadButton)`
   height: 2.5em;
   width: 2.5em;
   border: 1px solid #b2b2c9;
-  margin: 0.5em 0.6em 0.6em 0.8em;
+  margin: 0.5em 0em 0.6em 0.8em;
   background-color: #ffffff;
   @media (min-width: 756px) {
     margin-left: 1em;

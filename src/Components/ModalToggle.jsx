@@ -10,12 +10,13 @@ const WrapperBottom = styled(Flex)`
   justify-content: flex-end;
   align-items: center;
   position: fixed;
-  bottom: 4%;
+  top: 87%;
   width: 86%;
   z-index: 100;
 `;
 
 const WrapperVertical = styled(Flex)`
+  z-index: 100;
   height: 100%;
   justify-content: center;
   align-items: flex-start;
@@ -27,6 +28,7 @@ export const ToggleButton = styled(NotepadButton)`
   width: 3.6em;
   height: 3.6em;
   border-style: none;
+  z-index: 110;
   &:before {
     background: #333333;
     border-color: #333333;

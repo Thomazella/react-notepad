@@ -18,7 +18,7 @@ const actions = {
 };
 
 const effects = {
-  addNote: newNoteText => ({ setState }) => {
+  addNote: newNoteText => ({ setState, state: oldState }) => {
     const update = key => () =>
       setState(state => {
         const oldNotes = state[key];
@@ -26,12 +26,20 @@ const effects = {
         return { [key]: [...oldNotes, newNote] };
       });
 
+    if (oldState.loading) return;
+    setState({ loading: true });
     setTimeout(update("modalNotes"), 1000);
     setTimeout(update("notes"), 2000);
+    setTimeout(() => setState({ loading: false }), 2000);
   }
 };
 
-const initialState = { notes: [], modalNotes: [], closed: true };
+const initialState = {
+  notes: [],
+  modalNotes: [],
+  closed: true,
+  loading: false
+};
 
 const NoteContainer = incomingProps => {
   const { children, ...props } = incomingProps;

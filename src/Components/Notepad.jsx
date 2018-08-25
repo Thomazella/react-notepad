@@ -4,7 +4,7 @@ import NotepadView from "../Components/NotepadView";
 import NoteContainer from "../Containers/NoteContainer";
 import ModalToggle from "./ModalToggle";
 
-const MainView = styled(Base)`
+const HomeView = styled(Base)`
   width: 100%;
   @media (min-width: 756px) {
     max-width: 65%;
@@ -15,6 +15,7 @@ const Wrapper = styled(Base)`
   background-color: #ffffff;
   padding: 2rem;
   min-width: 100%;
+  min-height: calc(100vh - 150px);
   font-family: "M PLUS 1p", Roboto, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: 500;
   @media (min-width: 756px) {
@@ -24,13 +25,13 @@ const Wrapper = styled(Base)`
 
 const Notepad = props => (
   <Wrapper>
-    <MainView>
+    <HomeView>
       <NoteContainer>
         {({ notes, deleteNote }) => (
           <NotepadView notes={notes} deleteNote={deleteNote} {...props} />
         )}
       </NoteContainer>
-    </MainView>
+    </HomeView>
     <ModalToggle {...props} />
   </Wrapper>
 );

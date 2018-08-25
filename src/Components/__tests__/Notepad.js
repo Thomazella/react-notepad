@@ -123,3 +123,33 @@ test("adds notes with delay", () => {
   expect(home).toMatch(/foo/);
   expect(modal).toMatch(/foo/);
 });
+
+test("throttles addNote", () => {
+  jest.useFakeTimers();
+  const wrapper = mount(
+    <Provider>
+      <Notepad />
+    </Provider>
+  );
+
+  const input = wrapper.find(NewNote).find("input");
+  const submit = wrapper.find(NewNote).find(NotepadButton);
+
+  input.simulate("change", { target: { value: "foo" } });
+  submit.simulate("click");
+  input.simulate("change", { target: { value: "bar" } });
+  submit.simulate("click");
+  input.simulate("change", { target: { value: "baz" } });
+  submit.simulate("click");
+
+  jest.advanceTimersByTime(1000);
+  wrapper.update();
+
+  const modal = wrapper
+    .find(NotepadView)
+    .at(1)
+    .text();
+
+  expect(modal).toMatch(/foo/);
+  expect(modal).not.toMatch(/foobarbaz/);
+});
