@@ -8,7 +8,8 @@
     "start": "yarn parcel public/index.html --out-dir build --no-cache",
     "build": "yarn clean && yarn parcel build public/index.html --public-url ./ --out-dir build",
     "lint": "eslint src",
-    "clean": "yarn rimraf build && yarn rimraf .cache"
+    "clean": "yarn rimraf build && yarn rimraf .cache",
+    "test": "yarn jest"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,9 @@
   },
   "homepage": "https://github.com/Thomazella/react-notepad#readme",
   "dependencies": {
+    "emoji-aware": "^3.0.4",
+    "enzyme": "^3.4.4",
+    "enzyme-adapter-react-16": "^1.2.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",

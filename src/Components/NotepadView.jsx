@@ -1,16 +1,37 @@
-// import { styled } from "reakit";
 import React from "react";
-import Note from "./Note";
-import getUniqueId from "../utils/getUniqueId";
+import { Base } from "reakit";
+import PropTypes from "prop-types";
+import AnimatedNote from "./AnimatedNote";
 
-const NotepadView = props => {
-  const { notes, deleteNote } = props;
+const Wrapper = Base;
+
+const NotepadView = ({ notes, deleteNote, ...props }) => {
   if (!notes || !notes.length) return null;
-  return notes.map(note => (
-    <Note key={getUniqueId("note")} deleteNote={deleteNote}>
-      {note}
-    </Note>
-  ));
+
+  return (
+    <Wrapper {...props}>
+      {notes.map((note, index) => (
+        <AnimatedNote
+          key={note.id}
+          deleteNote={deleteNote}
+          index={index}
+          visible={note.visible}
+        >
+          {note.text}
+        </AnimatedNote>
+      ))}
+    </Wrapper>
+  );
+};
+
+NotepadView.propTypes = {
+  notes: PropTypes.instanceOf(Array),
+  deleteNote: PropTypes.func
+};
+
+NotepadView.defaultProps = {
+  notes: [],
+  deleteNote: () => undefined
 };
 
 export default NotepadView;
