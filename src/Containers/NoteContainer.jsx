@@ -9,10 +9,10 @@ const actions = {
         [key]: [...state[key].slice(0, index), ...state[key].slice(index + 1)]
       };
 
-    return Object.assign(
-      deleteAtIndex("notes", noteIndex),
-      deleteAtIndex("modalNotes", noteIndex)
-    );
+    return {
+      ...deleteAtIndex("notes", noteIndex),
+      ...deleteAtIndex("modalNotes", noteIndex)
+    };
   }
 };
 
@@ -39,15 +39,15 @@ const effects = {
   hideNote: noteIndex => ({ setState, state: oldState }) => {
     const hideAtIndex = (key, index) => {
       if (!oldState[key] || !oldState[key][index]) return oldState;
-      return Object.assign(oldState[key][index], { visible: false });
+      return {
+        [key]: [{ ...oldState[key][index], ...{ visible: false } }]
+      };
     };
 
-    setState(
-      Object.assign(
-        hideAtIndex("notes", noteIndex),
-        hideAtIndex("modalNotes", noteIndex)
-      )
-    );
+    setState({
+      ...hideAtIndex("notes", noteIndex),
+      ...hideAtIndex("modalNotes", noteIndex)
+    });
 
     setTimeout(
       () => setState(state => actions.deleteNote(noteIndex)(state)),

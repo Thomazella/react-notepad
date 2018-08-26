@@ -29,7 +29,7 @@ const Header = styled(Base)`
 `;
 
 const App = (
-  <Provider>
+  <Provider devtools>
     <Header>
       <StyledParagraph>React Notepad</StyledParagraph>
       <Inline fontWeight={500} fontSize="1em">

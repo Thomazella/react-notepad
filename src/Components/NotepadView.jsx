@@ -31,7 +31,7 @@ NotepadView.propTypes = {
 
 NotepadView.defaultProps = {
   notes: [],
-  deleteNote: () => undefined
+  deleteNote: () => {}
 };
 
 export default NotepadView;

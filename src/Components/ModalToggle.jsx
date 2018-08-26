@@ -44,31 +44,31 @@ const ModalView = styled(NotepadView)`
 const ModalToggle = props => (
   <Popover.Container>
     {config => (
-      <NoteContainer>
-        {({ modalNotes, hideNote }) => (
-          <WrapperBottom>
-            <WrapperVertical>
-              <ToggleButton as={Popover.Toggle} {...config} />
-              <Modal
-                placement="bottom-end"
-                hideOnClickOutside
-                fade
-                slide="bottom"
-                duration="0.3s"
-                {...config}
-              >
+      <WrapperBottom>
+        <WrapperVertical>
+          <ToggleButton as={Popover.Toggle} {...config} />
+          <Modal
+            placement="bottom-end"
+            hideOnClickOutside
+            fade
+            slide="bottom"
+            duration="0.3s"
+            {...config}
+          >
+            <NoteContainer>
+              {({ modalNotes, hideNote }) => (
                 <ModalView
                   notes={modalNotes}
                   deleteNote={hideNote}
                   {...props}
                 />
-                <NewNote />
-                <Popover.Arrow />
-              </Modal>
-            </WrapperVertical>
-          </WrapperBottom>
-        )}
-      </NoteContainer>
+              )}
+            </NoteContainer>
+            <NewNote />
+            <Popover.Arrow />
+          </Modal>
+        </WrapperVertical>
+      </WrapperBottom>
     )}
   </Popover.Container>
 );
