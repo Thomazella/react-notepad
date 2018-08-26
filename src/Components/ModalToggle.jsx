@@ -81,10 +81,10 @@ const ModalToggle = props => (
                 {closed ? <TiArrowMaximise /> : <TiArrowMinimise />}
               </ToggleButton>
               <Modal
-                placement="bottom-end"
+                placement="top-end"
                 hideOnClickOutside
                 fade
-                slide="bottom"
+                slide="top"
                 duration="0.3s"
                 {...config}
               >
