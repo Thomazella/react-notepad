@@ -8,7 +8,7 @@ import Note from "../Note";
 import NewNote from "../NewNote";
 
 /* eslint-disable react/jsx-filename-extension */
-console.error = () => {}; // eslint-disable-line pno-console
+console.error = () => {}; // eslint-disable-line no-console
 
 test("state.notes starts empty", () => {
   const wrapper = mount(
@@ -156,4 +156,91 @@ test("throttles addNote", () => {
 
   expect(modal).toMatch(/foo/);
   expect(modal).not.toMatch(/foobarbaz/);
+});
+
+test("Adds and deletes correctly", () => {
+  jest.useFakeTimers();
+  const wrapper = mount(
+    <Provider>
+      <Notepad />
+    </Provider>
+  );
+
+  const input = wrapper.find(NewNote).find("input");
+  const submit = wrapper.find(NewNote).find(NotepadButton);
+
+  input.simulate("change", { target: { value: "foo" } });
+  submit.simulate("click");
+  jest.runAllTimers();
+  input.simulate("change", { target: { value: "bar" } });
+  submit.simulate("click");
+  jest.runAllTimers();
+  wrapper.update();
+
+  const modal = wrapper
+    .find(NotepadView)
+    .at(1)
+    .text();
+
+  expect(modal).toMatch(/foobar/);
+
+  const deleteButton = wrapper
+    .find(Note)
+    .find(NotepadButton)
+    .at(0);
+
+  deleteButton.simulate("click");
+  jest.runAllTimers();
+  wrapper.update();
+
+  const result = wrapper
+    .find(NotepadView)
+    .at(0)
+    .prop("notes");
+
+  expect(result[0].text).toBe("bar");
+});
+
+test("Hides before deleting", () => {
+  jest.useFakeTimers();
+  const wrapper = mount(
+    <Provider>
+      <Notepad />
+    </Provider>
+  );
+
+  const input = wrapper.find(NewNote).find("input");
+  const submit = wrapper.find(NewNote).find(NotepadButton);
+
+  input.simulate("change", { target: { value: "foo" } });
+  submit.simulate("click");
+  jest.runAllTimers();
+  wrapper.update();
+
+  const deleteButton = wrapper
+    .find(Note)
+    .find(NotepadButton)
+    .at(0);
+
+  deleteButton.simulate("click");
+  jest.advanceTimersByTime(100);
+  wrapper.update();
+
+  let result = wrapper
+    .find(NotepadView)
+    .at(0)
+    .prop("notes");
+
+  expect(result[0].text).toBe("foo");
+  expect(result[0].visible).toBe(false);
+
+  jest.advanceTimersByTime(900);
+  wrapper.update();
+
+  result = wrapper
+    .find(NotepadView)
+    .at(0)
+    .prop("notes");
+
+  expect(result).toEqual([]);
 });
