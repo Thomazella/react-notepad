@@ -2,7 +2,7 @@ import React from "react";
 import { styled, Flex, Input } from "reakit";
 import { MdArrowForward } from "react-icons/md";
 import NoteContainer from "../Containers/NoteContainer";
-import ValueContainer from "../Containers/ValueContainer";
+import StateContainer from "../Containers/StateContainer";
 import NotepadButton from "./NotepadButton";
 
 const WrapperInput = styled(Flex)`
@@ -61,7 +61,7 @@ const SubmitButton = styled(NotepadButton)`
 const NewNote = props => (
   <NoteContainer {...props}>
     {({ addNote }) => (
-      <ValueContainer initialState={{ value: "" }} {...props}>
+      <StateContainer initialState={{ value: "" }} {...props}>
         {({ value, set }) => (
           <WrapperInput>
             <TextInput
@@ -79,7 +79,7 @@ const NewNote = props => (
             </SubmitButton>
           </WrapperInput>
         )}
-      </ValueContainer>
+      </StateContainer>
     )}
   </NoteContainer>
 );

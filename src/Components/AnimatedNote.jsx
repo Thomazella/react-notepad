@@ -22,13 +22,9 @@ const Animated = styled(Hidden)`
 `;
 
 const AnimatedNote = ({ visible, ...props }) => (
-  <Hidden.Container>
-    {config => (
-      <Animated {...config} animated visible={visible}>
-        <Note {...props} />
-      </Animated>
-    )}
-  </Hidden.Container>
+  <Animated animated visible={visible}>
+    <Note {...props} />
+  </Animated>
 );
 
 export default AnimatedNote;

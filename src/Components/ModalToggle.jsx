@@ -1,4 +1,4 @@
-import { styled, Flex, Popover } from "reakit";
+import { styled, Flex, Popover, Backdrop } from "reakit";
 import React from "react";
 import NoteContainer from "../Containers/NoteContainer";
 import ToggleButton from "./ToggleButton";
@@ -41,12 +41,18 @@ const ModalView = styled(NotepadView)`
   }
 `;
 
+const InvisibleBackdrop = styled(Backdrop)`
+  z-index: 80;
+  background-color: transparent;
+`;
+
 const ModalToggle = props => (
   <Popover.Container>
     {config => (
       <WrapperBottom>
         <WrapperVertical>
           <ToggleButton as={Popover.Toggle} {...config} />
+          <InvisibleBackdrop as={Popover.Hide} {...config} />
           <Modal
             placement="bottom-end"
             hideOnClickOutside

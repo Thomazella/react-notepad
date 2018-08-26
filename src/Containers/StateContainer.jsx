@@ -8,8 +8,6 @@ const actions = {
   }
 };
 
-const ValueContainer = props => (
-  <Container initialState={{ value: undefined }} actions={actions} {...props} />
-);
+const StateContainer = props => <Container actions={actions} {...props} />;
 
-export default ValueContainer;
+export default StateContainer;

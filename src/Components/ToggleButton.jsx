@@ -2,7 +2,7 @@ import { styled } from "reakit";
 import React from "react";
 import { TiArrowMaximise, TiArrowMinimise } from "react-icons/ti";
 import NotepadButton from "./NotepadButton";
-import ValueContainer from "../Containers/ValueContainer";
+import StateContainer from "../Containers/StateContainer";
 
 const Togglable = styled(NotepadButton)`
   color: white;
@@ -29,7 +29,7 @@ const Togglable = styled(NotepadButton)`
 `;
 
 const ToggleButton = props => (
-  <ValueContainer initialState={{ value: true }} {...props}>
+  <StateContainer initialState={{ value: true }} {...props}>
     {({ value, set }) => (
       <Togglable
         onClick={() => set(state => ({ value: !state.value }))}
@@ -38,7 +38,7 @@ const ToggleButton = props => (
         {value ? <TiArrowMaximise /> : <TiArrowMinimise />}
       </Togglable>
     )}
-  </ValueContainer>
+  </StateContainer>
 );
 
 export default ToggleButton;
