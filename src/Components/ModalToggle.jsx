@@ -1,8 +1,7 @@
 import { styled, Flex, Popover } from "reakit";
 import React from "react";
-import { TiArrowMaximise, TiArrowMinimise } from "react-icons/ti";
 import NoteContainer from "../Containers/NoteContainer";
-import NotepadButton from "./NotepadButton";
+import ToggleButton from "./ToggleButton";
 import NotepadView from "./NotepadView";
 import NewNote from "./NewNote";
 
@@ -20,30 +19,6 @@ const WrapperVertical = styled(Flex)`
   height: 100%;
   justify-content: center;
   align-items: flex-start;
-`;
-
-export const ToggleButton = styled(NotepadButton)`
-  color: white;
-  background-color: #333333;
-  width: 3.6em;
-  height: 3.6em;
-  border-style: none;
-  z-index: 110;
-  &:before {
-    background: #333333;
-    border-color: #333333;
-  }
-  &:hover,
-  &:active,
-  &:focus {
-    border-style: none;
-    color: white;
-  }
-  &:active:before,
-  &:focus:before,
-  &:hover:before {
-    background: #333333;
-  }
 `;
 
 const Modal = styled(Popover)`
@@ -70,16 +45,10 @@ const ModalToggle = props => (
   <Popover.Container>
     {config => (
       <NoteContainer>
-        {({ toggle, closed, modalNotes, hideNote, addNote }) => (
+        {({ modalNotes, hideNote, addNote }) => (
           <WrapperBottom>
             <WrapperVertical>
-              <ToggleButton
-                as={Popover.Toggle}
-                onClick={() => toggle()}
-                {...config}
-              >
-                {closed ? <TiArrowMaximise /> : <TiArrowMinimise />}
-              </ToggleButton>
+              <ToggleButton as={Popover.Toggle} {...config} />
               <Modal
                 placement="bottom-end"
                 hideOnClickOutside

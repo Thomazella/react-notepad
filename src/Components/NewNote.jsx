@@ -60,8 +60,6 @@ const actions = {
   updateText: newText => () => ({ text: newText })
 };
 
-const empty = "";
-
 const NewNote = ({ addNote }, ...props) => (
   <Container initialState={{ text: "" }} actions={actions} {...props}>
     {({ text, updateText }) => (
@@ -75,7 +73,7 @@ const NewNote = ({ addNote }, ...props) => (
         <SubmitButton
           onClick={() => {
             addNote(text);
-            updateText(empty);
+            updateText("");
           }}
         >
           <MdArrowForward />

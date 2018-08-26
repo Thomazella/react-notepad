@@ -3,7 +3,6 @@ import { Container } from "reakit";
 import getUniqueId from "../utils/getUniqueId";
 
 const actions = {
-  toggle: () => state => ({ closed: !state.closed }),
   deleteNote: noteIndex => state => {
     const deleteAtIndex = (key, index) =>
       state[key] && {
@@ -60,23 +59,17 @@ const effects = {
 const initialState = {
   notes: [],
   modalNotes: [],
-  closed: true,
   loading: false
 };
 
-const NoteContainer = incomingProps => {
-  const { children, ...props } = incomingProps;
-  return (
-    <Container
-      actions={actions}
-      initialState={initialState}
-      effects={effects}
-      context="notepad"
-      {...props}
-    >
-      {children}
-    </Container>
-  );
-};
+const NoteContainer = props => (
+  <Container
+    actions={actions}
+    initialState={initialState}
+    effects={effects}
+    context="notepad"
+    {...props}
+  />
+);
 
 export default NoteContainer;

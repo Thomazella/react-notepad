@@ -166,6 +166,7 @@ Made some changes to `.babelrc` to remove dead browsers increasing bundle size.
 - Started adding animations and transitions.
 - Added AnimatedNote
 - Added throttle on `addNote`
+- Animated note deletion
 
 ### Thoughts
 
@@ -179,3 +180,14 @@ Made `AnimatedNote` as a wrapper around `Note`.
 It uses Reakit's `Hidden` to provide a cool animation for notes being added to the Notepad.
 
 Added a boolean flag to prevent several notes being added in a row.
+
+Note deletion was animated by defining a function that hides the notes, and triggers an animation.
+Deletion from state is defered to a callback running 1s later.
+
+## Day 8
+
+- Refactors
+
+### Thoughts
+
+Refactored the modal toggle button in it's own component.
