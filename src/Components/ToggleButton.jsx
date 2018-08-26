@@ -1,7 +1,8 @@
-import { styled, Container } from "reakit";
+import { styled } from "reakit";
 import React from "react";
 import { TiArrowMaximise, TiArrowMinimise } from "react-icons/ti";
 import NotepadButton from "./NotepadButton";
+import ValueContainer from "../Containers/ValueContainer";
 
 const Togglable = styled(NotepadButton)`
   color: white;
@@ -27,18 +28,17 @@ const Togglable = styled(NotepadButton)`
   }
 `;
 
-const actions = {
-  toggle: () => state => ({ closed: !state.closed })
-};
-
 const ToggleButton = props => (
-  <Container initialState={{ closed: true }} actions={actions} {...props}>
-    {({ closed, toggle }) => (
-      <Togglable onClick={() => toggle()} {...props}>
-        {closed ? <TiArrowMaximise /> : <TiArrowMinimise />}
+  <ValueContainer initialState={{ value: true }} {...props}>
+    {({ value, set }) => (
+      <Togglable
+        onClick={() => set(state => ({ value: !state.value }))}
+        {...props}
+      >
+        {value ? <TiArrowMaximise /> : <TiArrowMinimise />}
       </Togglable>
     )}
-  </Container>
+  </ValueContainer>
 );
 
 export default ToggleButton;

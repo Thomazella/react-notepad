@@ -1,7 +1,8 @@
 import React from "react";
-import { styled, Container, Flex, Input } from "reakit";
+import { styled, Flex, Input } from "reakit";
 import { MdArrowForward } from "react-icons/md";
 import NoteContainer from "../Containers/NoteContainer";
+import ValueContainer from "../Containers/ValueContainer";
 import NotepadButton from "./NotepadButton";
 
 const WrapperInput = styled(Flex)`
@@ -57,32 +58,28 @@ const SubmitButton = styled(NotepadButton)`
   }
 `;
 
-const actions = {
-  updateText: newText => () => ({ text: newText })
-};
-
 const NewNote = props => (
   <NoteContainer {...props}>
     {({ addNote }) => (
-      <Container initialState={{ text: "" }} actions={actions} {...props}>
-        {({ text, updateText }) => (
+      <ValueContainer initialState={{ value: "" }} {...props}>
+        {({ value, set }) => (
           <WrapperInput>
             <TextInput
-              value={text}
+              value={value}
               placeholder="Add a note"
-              onChange={event => updateText(event.target.value)}
+              onChange={event => set({ value: event.target.value })}
             />
             <SubmitButton
               onClick={() => {
-                addNote(text);
-                updateText("");
+                addNote(value);
+                set({ value: "" });
               }}
             >
               <MdArrowForward />
             </SubmitButton>
           </WrapperInput>
         )}
-      </Container>
+      </ValueContainer>
     )}
   </NoteContainer>
 );
