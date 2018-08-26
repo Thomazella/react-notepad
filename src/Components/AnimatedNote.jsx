@@ -8,9 +8,8 @@ const dropin = keyframes`
 `;
 
 const dropout = keyframes`
-  0% { transform: none }
-  50% { transform: rotateZ(180deg) }
-  100% { transform: rotateZ(180deg) translateX(1000%) }
+  35% { transform: translateY(-25%); opacity: 0.6; }
+  100% { transform: translateY(+100%); opacity: 0.2; transform: scale(0.9); }
 `;
 
 const Animated = styled(Hidden)`
@@ -22,10 +21,10 @@ const Animated = styled(Hidden)`
   }
 `;
 
-const AnimatedNote = props => (
+const AnimatedNote = ({ visible, ...props }) => (
   <Hidden.Container>
     {config => (
-      <Animated {...config} visible>
+      <Animated {...config} animated visible={visible}>
         <Note {...props} />
       </Animated>
     )}

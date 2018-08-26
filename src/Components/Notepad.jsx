@@ -27,8 +27,8 @@ const Notepad = props => (
   <Wrapper>
     <HomeView>
       <NoteContainer>
-        {({ notes, deleteNote }) => (
-          <NotepadView notes={notes} deleteNote={deleteNote} {...props} />
+        {({ notes, hideNote }) => (
+          <NotepadView notes={notes} deleteNote={hideNote} {...props} />
         )}
       </NoteContainer>
     </HomeView>

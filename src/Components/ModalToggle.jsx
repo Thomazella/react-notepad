@@ -70,7 +70,7 @@ const ModalToggle = props => (
   <Popover.Container>
     {config => (
       <NoteContainer>
-        {({ toggle, closed, modalNotes, deleteNote, addNote }) => (
+        {({ toggle, closed, modalNotes, hideNote, addNote }) => (
           <WrapperBottom>
             <WrapperVertical>
               <ToggleButton
@@ -90,7 +90,7 @@ const ModalToggle = props => (
               >
                 <ModalView
                   notes={modalNotes}
-                  deleteNote={deleteNote}
+                  deleteNote={hideNote}
                   {...props}
                 />
                 <NewNote addNote={addNote} />

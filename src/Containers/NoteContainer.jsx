@@ -22,7 +22,11 @@ const effects = {
     const update = key => () =>
       setState(state => {
         const oldNotes = state[key];
-        const newNote = { id: getUniqueId("note"), text: newNoteText };
+        const newNote = {
+          id: getUniqueId("note"),
+          text: newNoteText,
+          visible: true
+        };
         return { [key]: [...oldNotes, newNote] };
       });
 
@@ -31,6 +35,25 @@ const effects = {
     setTimeout(update("modalNotes"), 1000);
     setTimeout(update("notes"), 2000);
     setTimeout(() => setState({ loading: false }), 2000);
+  },
+
+  hideNote: noteIndex => ({ setState, state: oldState }) => {
+    const hideAtIndex = (key, index) => {
+      if (!oldState[key] || !oldState[key][index]) return oldState;
+      return Object.assign(oldState[key][index], { visible: false });
+    };
+
+    setState(
+      Object.assign(
+        hideAtIndex("notes", noteIndex),
+        hideAtIndex("modalNotes", noteIndex)
+      )
+    );
+
+    setTimeout(
+      () => setState(state => actions.deleteNote(noteIndex)(state)),
+      1000
+    );
   }
 };
 

@@ -24,6 +24,7 @@ test("state.notes starts empty", () => {
 });
 
 test("doesn't delete notes with identic tests", () => {
+  jest.useFakeTimers();
   const mock = [
     { text: "foo", id: 1 },
     { text: "foo", id: 2 },
@@ -40,6 +41,8 @@ test("doesn't delete notes with identic tests", () => {
     .at(0);
 
   button.simulate("click");
+  jest.runAllTimers();
+  wrapper.update();
 
   const result = wrapper
     .find(NotepadView)

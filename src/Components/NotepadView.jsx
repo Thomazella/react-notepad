@@ -11,7 +11,12 @@ const NotepadView = ({ notes, deleteNote, ...props }) => {
   return (
     <Wrapper {...props}>
       {notes.map((note, index) => (
-        <AnimatedNote key={note.id} deleteNote={deleteNote} index={index}>
+        <AnimatedNote
+          key={note.id}
+          deleteNote={deleteNote}
+          index={index}
+          visible={note.visible}
+        >
           {note.text}
         </AnimatedNote>
       ))}
