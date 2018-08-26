@@ -8,7 +8,7 @@ import NewNote from "./NewNote";
 const WrapperBottom = styled(Flex)`
   justify-content: flex-end;
   align-items: center;
-  position: absolute;
+  position: fixed;
   bottom: 4%;
   width: 86%;
   z-index: 100;
