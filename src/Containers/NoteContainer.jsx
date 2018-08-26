@@ -2,18 +2,23 @@ import React from "react";
 import { Container } from "reakit";
 import getUniqueId from "../utils/getUniqueId";
 
+const initialState = {
+  notes: [],
+  modalNotes: [],
+  loading: false
+};
+
 const actions = {
-  toggle: () => state => ({ closed: !state.closed }),
   deleteNote: noteIndex => state => {
     const deleteAtIndex = (key, index) =>
       state[key] && {
         [key]: [...state[key].slice(0, index), ...state[key].slice(index + 1)]
       };
 
-    return Object.assign(
-      deleteAtIndex("notes", noteIndex),
-      deleteAtIndex("modalNotes", noteIndex)
-    );
+    return {
+      ...deleteAtIndex("notes", noteIndex),
+      ...deleteAtIndex("modalNotes", noteIndex)
+    };
   }
 };
 
@@ -40,15 +45,20 @@ const effects = {
   hideNote: noteIndex => ({ setState, state: oldState }) => {
     const hideAtIndex = (key, index) => {
       if (!oldState[key] || !oldState[key][index]) return oldState;
-      return Object.assign(oldState[key][index], { visible: false });
+
+      return {
+        [key]: [
+          ...oldState[key].slice(0, index),
+          { ...oldState[key][index], visible: false },
+          ...oldState[key].slice(index + 1)
+        ]
+      };
     };
 
-    setState(
-      Object.assign(
-        hideAtIndex("notes", noteIndex),
-        hideAtIndex("modalNotes", noteIndex)
-      )
-    );
+    setState({
+      ...hideAtIndex("notes", noteIndex),
+      ...hideAtIndex("modalNotes", noteIndex)
+    });
 
     setTimeout(
       () => setState(state => actions.deleteNote(noteIndex)(state)),
@@ -57,26 +67,14 @@ const effects = {
   }
 };
 
-const initialState = {
-  notes: [],
-  modalNotes: [],
-  closed: true,
-  loading: false
-};
-
-const NoteContainer = incomingProps => {
-  const { children, ...props } = incomingProps;
-  return (
-    <Container
-      actions={actions}
-      initialState={initialState}
-      effects={effects}
-      context="notepad"
-      {...props}
-    >
-      {children}
-    </Container>
-  );
-};
+const NoteContainer = props => (
+  <Container
+    actions={actions}
+    initialState={initialState}
+    effects={effects}
+    context="notepad"
+    {...props}
+  />
+);
 
 export default NoteContainer;

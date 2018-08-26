@@ -1,8 +1,7 @@
-import { styled, Flex, Popover } from "reakit";
+import { styled, Flex, Popover, Backdrop } from "reakit";
 import React from "react";
-import { TiArrowMaximise, TiArrowMinimise } from "react-icons/ti";
 import NoteContainer from "../Containers/NoteContainer";
-import NotepadButton from "./NotepadButton";
+import ToggleButton from "./ToggleButton";
 import NotepadView from "./NotepadView";
 import NewNote from "./NewNote";
 
@@ -20,30 +19,6 @@ const WrapperVertical = styled(Flex)`
   height: 100%;
   justify-content: center;
   align-items: flex-start;
-`;
-
-export const ToggleButton = styled(NotepadButton)`
-  color: white;
-  background-color: #333333;
-  width: 3.6em;
-  height: 3.6em;
-  border-style: none;
-  z-index: 110;
-  &:before {
-    background: #333333;
-    border-color: #333333;
-  }
-  &:hover,
-  &:active,
-  &:focus {
-    border-style: none;
-    color: white;
-  }
-  &:active:before,
-  &:focus:before,
-  &:hover:before {
-    background: #333333;
-  }
 `;
 
 const Modal = styled(Popover)`
@@ -66,40 +41,40 @@ const ModalView = styled(NotepadView)`
   }
 `;
 
+const InvisibleBackdrop = styled(Backdrop)`
+  z-index: 80;
+  background-color: transparent;
+`;
+
 const ModalToggle = props => (
   <Popover.Container>
     {config => (
-      <NoteContainer>
-        {({ toggle, closed, modalNotes, hideNote, addNote }) => (
-          <WrapperBottom>
-            <WrapperVertical>
-              <ToggleButton
-                as={Popover.Toggle}
-                onClick={() => toggle()}
-                {...config}
-              >
-                {closed ? <TiArrowMaximise /> : <TiArrowMinimise />}
-              </ToggleButton>
-              <Modal
-                placement="bottom-end"
-                hideOnClickOutside
-                fade
-                slide="bottom"
-                duration="0.3s"
-                {...config}
-              >
+      <WrapperBottom>
+        <WrapperVertical>
+          <ToggleButton as={Popover.Toggle} {...config} />
+          <InvisibleBackdrop as={Popover.Hide} {...config} />
+          <Modal
+            placement="bottom-end"
+            hideOnClickOutside
+            fade
+            slide="bottom"
+            duration="0.3s"
+            {...config}
+          >
+            <NoteContainer>
+              {({ modalNotes, hideNote }) => (
                 <ModalView
                   notes={modalNotes}
                   deleteNote={hideNote}
                   {...props}
                 />
-                <NewNote addNote={addNote} />
-                <Popover.Arrow />
-              </Modal>
-            </WrapperVertical>
-          </WrapperBottom>
-        )}
-      </NoteContainer>
+              )}
+            </NoteContainer>
+            <NewNote />
+            <Popover.Arrow />
+          </Modal>
+        </WrapperVertical>
+      </WrapperBottom>
     )}
   </Popover.Container>
 );

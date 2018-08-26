@@ -53,7 +53,7 @@ const DeleteButton = styled(NotepadButton)`
   }
 `;
 
-const validate = (func, string) => {
+const validate = (string, func) => {
   if (!string) return true;
   return func(string);
 };
@@ -63,8 +63,8 @@ const noEmojiChars = string => onlyEmoji(String(string)).length === 0;
 
 const Note = ({ children: noteText, deleteNote, index, ...props }) => {
   const meaningful = lengthNotZero(noteText);
-  const short = validate(lengthUnder100, noteText);
-  const emojiFree = validate(noEmojiChars, noteText);
+  const short = validate(noteText, lengthUnder100);
+  const emojiFree = validate(noteText, noEmojiChars);
   const ok = meaningful && short && emojiFree;
 
   return (
