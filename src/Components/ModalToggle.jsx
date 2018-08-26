@@ -59,11 +59,8 @@ const Modal = styled(Popover)`
 `;
 
 const ModalView = styled(NotepadView)`
-  max-height: 70vh;
+  max-height: 50vh;
   overflow-y: auto;
-  @media (min-width: 756px) {
-    max-height: 50vh;
-  }
 `;
 
 const ModalToggle = props => (
