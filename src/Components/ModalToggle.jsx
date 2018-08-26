@@ -9,7 +9,7 @@ const WrapperBottom = styled(Flex)`
   justify-content: flex-end;
   align-items: center;
   position: fixed;
-  top: 87%;
+  top: 83%;
   width: 86%;
   z-index: 100;
 `;
