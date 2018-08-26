@@ -25,8 +25,13 @@ const NotepadView = ({ notes, deleteNote, ...props }) => {
 };
 
 NotepadView.propTypes = {
-  notes: PropTypes.instanceOf(Array).isRequired,
-  deleteNote: PropTypes.func.isRequired
+  notes: PropTypes.instanceOf(Array),
+  deleteNote: PropTypes.func
+};
+
+NotepadView.defaultProps = {
+  notes: [],
+  deleteNote: () => {}
 };
 
 export default NotepadView;

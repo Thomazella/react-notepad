@@ -7,7 +7,6 @@ import NotepadButton from "../NotepadButton";
 import Note from "../Note";
 
 /* eslint-disable react/jsx-filename-extension */
-console.error = () => {}; // eslint-disable-line no-console
 
 test("renders Notes", () => {
   const wrapper = mount(<NotepadView notes={[{ text: "foo", id: 1 }]} />);

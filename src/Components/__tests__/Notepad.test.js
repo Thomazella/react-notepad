@@ -8,7 +8,6 @@ import Note from "../Note";
 import NewNote from "../NewNote";
 
 /* eslint-disable react/jsx-filename-extension */
-console.error = () => {}; // eslint-disable-line no-console
 
 test("state.notes starts empty", () => {
   const wrapper = mount(
