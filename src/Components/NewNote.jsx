@@ -1,6 +1,7 @@
 import React from "react";
 import { styled, Container, Flex, Input } from "reakit";
 import { MdArrowForward } from "react-icons/md";
+import NoteContainer from "../Containers/NoteContainer";
 import NotepadButton from "./NotepadButton";
 
 const WrapperInput = styled(Flex)`
@@ -60,27 +61,30 @@ const actions = {
   updateText: newText => () => ({ text: newText })
 };
 
-const NewNote = ({ addNote }, ...props) => (
-  <Container initialState={{ text: "" }} actions={actions} {...props}>
-    {({ text, updateText }) => (
-      <WrapperInput>
-        <TextInput
-          value={text}
-          placeholder="Add a note"
-          onChange={event => updateText(event.target.value)}
-          onKeyDown={({ key }) => key === "Enter" && addNote(text)}
-        />
-        <SubmitButton
-          onClick={() => {
-            addNote(text);
-            updateText("");
-          }}
-        >
-          <MdArrowForward />
-        </SubmitButton>
-      </WrapperInput>
+const NewNote = props => (
+  <NoteContainer {...props}>
+    {({ addNote }) => (
+      <Container initialState={{ text: "" }} actions={actions} {...props}>
+        {({ text, updateText }) => (
+          <WrapperInput>
+            <TextInput
+              value={text}
+              placeholder="Add a note"
+              onChange={event => updateText(event.target.value)}
+            />
+            <SubmitButton
+              onClick={() => {
+                addNote(text);
+                updateText("");
+              }}
+            >
+              <MdArrowForward />
+            </SubmitButton>
+          </WrapperInput>
+        )}
+      </Container>
     )}
-  </Container>
+  </NoteContainer>
 );
 
 export default NewNote;
