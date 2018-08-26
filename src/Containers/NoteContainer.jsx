@@ -2,6 +2,12 @@ import React from "react";
 import { Container } from "reakit";
 import getUniqueId from "../utils/getUniqueId";
 
+const initialState = {
+  notes: [],
+  modalNotes: [],
+  loading: false
+};
+
 const actions = {
   deleteNote: noteIndex => state => {
     const deleteAtIndex = (key, index) =>
@@ -39,8 +45,13 @@ const effects = {
   hideNote: noteIndex => ({ setState, state: oldState }) => {
     const hideAtIndex = (key, index) => {
       if (!oldState[key] || !oldState[key][index]) return oldState;
+
       return {
-        [key]: [{ ...oldState[key][index], ...{ visible: false } }]
+        [key]: [
+          ...oldState[key].slice(0, index),
+          { ...oldState[key][index], visible: false },
+          ...oldState[key].slice(index + 1)
+        ]
       };
     };
 
@@ -54,12 +65,6 @@ const effects = {
       1000
     );
   }
-};
-
-const initialState = {
-  notes: [],
-  modalNotes: [],
-  loading: false
 };
 
 const NoteContainer = props => (

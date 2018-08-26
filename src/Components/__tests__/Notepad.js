@@ -8,6 +8,7 @@ import Note from "../Note";
 import NewNote from "../NewNote";
 
 /* eslint-disable react/jsx-filename-extension */
+console.error = () => {}; // eslint-disable-line pno-console
 
 test("state.notes starts empty", () => {
   const wrapper = mount(
@@ -23,7 +24,7 @@ test("state.notes starts empty", () => {
   expect(result).toEqual([]);
 });
 
-test("doesn't delete notes with identic tests", () => {
+test("doesn't delete notes with identic text", () => {
   jest.useFakeTimers();
   const mock = [
     { text: "foo", id: 1 },
