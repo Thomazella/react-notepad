@@ -1,10 +1,10 @@
 import { styled } from "reakit";
 import React from "react";
 import { TiArrowMaximise, TiArrowMinimise } from "react-icons/ti";
-import NotepadButton from "./NotepadButton";
-import StateContainer from "../Containers/StateContainer";
+import Button from "../elements/Button";
+import StateContainer from "../containers/StateContainer";
 
-const Togglable = styled(NotepadButton)`
+const Togglable = styled(Button)`
   color: white;
   background-color: #333333;
   width: 3.6em;

@@ -1,43 +1,28 @@
 import React from "react";
-import { Base, styled, Paragraph, Inline, Provider } from "reakit";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import { createLogger } from "redux-logger";
+import thunkMiddleware from "redux-thunk";
+import Header from "./components/Header";
+import rootReducer from "./reducers";
+import Notepad from "./components/Notepad";
 
-import Notepad from "./Components/Notepad";
+const customLogger = createLogger({ collapsed: true });
+export const createHydratedStore = preloadedState =>
+  createStore(
+    rootReducer,
+    preloadedState,
+    applyMiddleware(thunkMiddleware, customLogger)
+  );
+export const store = createHydratedStore();
 
-const StyledParagraph = styled(Paragraph)`
-  color: #000075;
-  font-weight: 800;
-  font-size: 1.9em;
-  line-height: 1.1;
-  &:not(:last-child) {
-    margin-bottom: 0.4em;
-  }
-  @media (min-width: 756px) {
-    font-size: 2.3em;
-  }
-`;
-
-const Header = styled(Base)`
-  padding: 0.5em 2em;
-  font-family: "M PLUS 1p", Roboto, "Open Sans", "Helvetica Neue", sans-serif;
-  background-color: #ff5454;
-  color: white;
-  min-height: 10vh;
-  letter-spacing: 0.02em;
-  @media (min-width: 756px) {
-    padding: 1em 4em;
-  }
-`;
-
-const App = (
-  <Provider devtools>
-    <Header>
-      <StyledParagraph>React Notepad</StyledParagraph>
-      <Inline fontWeight={500} fontSize="1em">
-        Try to add some notes!
-      </Inline>
-    </Header>
-    <Notepad />
+const App = () => (
+  <Provider store={store}>
+    <React.Fragment>
+      <Header />
+      <Notepad />
+    </React.Fragment>
   </Provider>
 );
 
-export default App;
+export default <App />;

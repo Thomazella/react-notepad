@@ -1,9 +1,16 @@
 import { styled, Flex, Popover, Backdrop } from "reakit";
+import { connect } from "react-redux";
 import React from "react";
-import NoteContainer from "../Containers/NoteContainer";
 import ToggleButton from "./ToggleButton";
-import NotepadView from "./NotepadView";
+import View from "./View";
 import NewNote from "./NewNote";
+import { selectModalNotes } from "../selectors";
+import { hideThenDelete } from "../actions";
+
+const ConnectedView = connect(
+  selectModalNotes,
+  hideThenDelete
+)(View);
 
 const WrapperBottom = styled(Flex)`
   justify-content: flex-end;
@@ -21,7 +28,7 @@ const WrapperVertical = styled(Flex)`
   align-items: flex-start;
 `;
 
-const Modal = styled(Popover)`
+const StyledPopover = styled(Popover)`
   width: 100%;
   min-height: 60%;
   min-height: 60vh;
@@ -33,7 +40,7 @@ const Modal = styled(Popover)`
   }
 `;
 
-const ModalView = styled(NotepadView)`
+const Noteview = styled(ConnectedView)`
   max-height: 70vh;
   overflow-y: auto;
   @media (min-width: 756px) {
@@ -46,14 +53,14 @@ const InvisibleBackdrop = styled(Backdrop)`
   background-color: transparent;
 `;
 
-const ModalToggle = props => (
+const Modal = props => (
   <Popover.Container>
     {config => (
       <WrapperBottom>
         <WrapperVertical>
           <ToggleButton as={Popover.Toggle} {...config} />
           <InvisibleBackdrop as={Popover.Hide} {...config} />
-          <Modal
+          <StyledPopover
             placement="bottom-end"
             hideOnClickOutside
             fade
@@ -61,22 +68,14 @@ const ModalToggle = props => (
             duration="0.3s"
             {...config}
           >
-            <NoteContainer>
-              {({ modalNotes, hideNote }) => (
-                <ModalView
-                  notes={modalNotes}
-                  deleteNote={hideNote}
-                  {...props}
-                />
-              )}
-            </NoteContainer>
+            <Noteview {...props} />
             <NewNote />
             <Popover.Arrow />
-          </Modal>
+          </StyledPopover>
         </WrapperVertical>
       </WrapperBottom>
     )}
   </Popover.Container>
 );
 
-export default ModalToggle;
+export default Modal;

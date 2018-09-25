@@ -4,6 +4,7 @@
   "description": "Simple frontend for a notepad",
   "license": "BSD-3-Clause",
   "main": "./src/index.js",
+  "private": true,
   "scripts": {
     "start": "yarn parcel public/index.html --out-dir build --no-cache",
     "build": "yarn clean && yarn parcel build public/index.html --public-url ./ --out-dir build",
@@ -36,7 +37,11 @@
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-icons": "^3.0.5",
-    "reakit": "^0.14.2"
+    "react-redux": "^5.0.7",
+    "reakit": "^0.14.2",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

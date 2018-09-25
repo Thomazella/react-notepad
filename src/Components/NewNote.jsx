@@ -1,9 +1,10 @@
 import React from "react";
 import { styled, Flex, Input } from "reakit";
+import { connect } from "react-redux";
 import { MdArrowForward } from "react-icons/md";
-import NoteContainer from "../Containers/NoteContainer";
-import StateContainer from "../Containers/StateContainer";
-import NotepadButton from "./NotepadButton";
+import { addNoteToAllTargets } from "../actions";
+import StateContainer from "../containers/StateContainer";
+import Button from "../elements/Button";
 
 const WrapperInput = styled(Flex)`
   position: absolute;
@@ -42,7 +43,7 @@ const TextInput = styled(Input)`
   }
 `;
 
-const SubmitButton = styled(NotepadButton)`
+const SubmitButton = styled(Button)`
   height: 2.5em;
   width: 2.5em;
   border: 1px solid #b2b2c9;
@@ -58,30 +59,30 @@ const SubmitButton = styled(NotepadButton)`
   }
 `;
 
-const NewNote = props => (
-  <NoteContainer {...props}>
-    {({ addNote }) => (
-      <StateContainer initialState={{ value: "" }} {...props}>
-        {({ value, set }) => (
-          <WrapperInput>
-            <TextInput
-              value={value}
-              placeholder="Add a note"
-              onChange={event => set({ value: event.target.value })}
-            />
-            <SubmitButton
-              onClick={() => {
-                addNote(value);
-                set({ value: "" });
-              }}
-            >
-              <MdArrowForward />
-            </SubmitButton>
-          </WrapperInput>
-        )}
-      </StateContainer>
-    )}
-  </NoteContainer>
-);
+export const CompositionalNewNote = props => {
+  const { handleOnClick } = props;
 
-export default NewNote;
+  return (
+    <StateContainer initialState={{ value: "" }} {...props}>
+      {({ value, set }) => (
+        <WrapperInput {...props}>
+          <TextInput
+            value={value}
+            placeholder="Add a note"
+            onChange={event => set({ value: event.target.value })}
+          />
+          <SubmitButton onClick={() => handleOnClick(value, set)}>
+            <MdArrowForward />
+          </SubmitButton>
+        </WrapperInput>
+      )}
+    </StateContainer>
+  );
+};
+
+const ConnectedNewNote = connect(
+  undefined,
+  addNoteToAllTargets
+)(CompositionalNewNote);
+
+export default ConnectedNewNote;

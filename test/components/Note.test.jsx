@@ -1,8 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
-import Note from "../Note";
+import Note from "../../src/components/Note";
 
-/* eslint-disable react/jsx-filename-extension */
 /* eslint-disable jsx-a11y/accessible-emoji */
 
 test("delete button", () => {

@@ -2,10 +2,10 @@ import { styled, Flex } from "reakit";
 import React, { Fragment } from "react";
 import { onlyEmoji } from "emoji-aware";
 import { MdClose } from "react-icons/md";
-import NotepadButton from "./NotepadButton";
-import BaseNote from "./BaseNote";
+import Button from "../elements/Button";
+import Note from "../elements/Note";
 
-const NoteBody = styled(BaseNote)`
+const NoteBody = styled(Note)`
   background-color: #f5f5fc;
   color: black;
   padding: 5px 20px;
@@ -16,7 +16,7 @@ const NoteBody = styled(BaseNote)`
   }
 `;
 
-const ErrorMsg = styled(BaseNote)`
+const ErrorMsg = styled(Note)`
   padding: 5px 20px;
   &:hover,
   &:active,
@@ -25,7 +25,7 @@ const ErrorMsg = styled(BaseNote)`
   }
 `;
 
-const ErrorWrapper = styled(BaseNote)`
+const ErrorWrapper = styled(Note)`
   flex-direction: column;
   position: relative;
   top: -0.9em;
@@ -34,7 +34,7 @@ const ErrorWrapper = styled(BaseNote)`
   border-width: 0;
 `;
 
-const DeleteButton = styled(NotepadButton)`
+const DeleteButton = styled(Button)`
   color: #011688;
   background-color: #ffffff;
   width: 1.5em;
@@ -61,7 +61,7 @@ const lengthNotZero = string => string && string.length !== 0;
 const lengthUnder100 = string => string.length <= 100;
 const noEmojiChars = string => onlyEmoji(String(string)).length === 0;
 
-const Note = ({ children: noteText, deleteNote, index, ...props }) => {
+const Component = ({ children: noteText, deleteNote, index, ...props }) => {
   const meaningful = lengthNotZero(noteText);
   const short = validate(noteText, lengthUnder100);
   const emojiFree = validate(noteText, noEmojiChars);
@@ -92,4 +92,4 @@ const Note = ({ children: noteText, deleteNote, index, ...props }) => {
   );
 };
 
-export default Note;
+export default Component;

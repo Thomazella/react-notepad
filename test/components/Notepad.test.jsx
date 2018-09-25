@@ -1,22 +1,29 @@
+/* eslint-disable no-console */
 import React from "react";
 import { mount } from "enzyme";
-import { Provider } from "reakit";
-import Notepad from "../Notepad";
-import NotepadView from "../NotepadView";
-import NotepadButton from "../NotepadButton";
-import Note from "../Note";
-import NewNote from "../NewNote";
+import { Provider } from "react-redux";
+import Notepad from "../../src/components/Notepad";
+import View from "../../src/components/View";
+import Button from "../../src/elements/Button";
+import Note from "../../src/components/Note";
+import { CompositionalNewNote as NewNote } from "../../src/components/NewNote";
+import { createHydratedStore } from "../../src/App";
 
-/* eslint-disable react/jsx-filename-extension */
+// otherwise redux logger polutes jest output
+console.log = () => {};
+console.groupCollapsed = () => {};
 
-test("state.notes starts empty", () => {
-  const wrapper = mount(
-    <Provider>
-      <Notepad />
+const wrapMount = (store, ...args) =>
+  mount(
+    <Provider store={store || createHydratedStore()}>
+      <Notepad {...args} />
     </Provider>
   );
+
+test("state.notes starts empty", () => {
+  const wrapper = wrapMount();
   const result = wrapper
-    .find(NotepadView)
+    .find(View)
     .at(0)
     .prop("notes");
 
@@ -25,19 +32,17 @@ test("state.notes starts empty", () => {
 
 test("doesn't delete notes with identic text", () => {
   jest.useFakeTimers();
-  const mock = [
-    { text: "foo", id: 1 },
-    { text: "foo", id: 2 },
-    { text: "foo", id: 3 }
-  ];
-  const wrapper = mount(
-    <Provider initialState={{ notepad: { notes: mock } }}>
-      <Notepad />
-    </Provider>
-  );
+  const mockStore = createHydratedStore({
+    notes: [
+      { text: "foo", id: 1 },
+      { text: "foo", id: 2 },
+      { text: "foo", id: 3 }
+    ]
+  });
+  const wrapper = wrapMount(mockStore);
   const button = wrapper
     .find(Note)
-    .find(NotepadButton)
+    .find(Button)
     .at(0);
 
   button.simulate("click");
@@ -45,7 +50,7 @@ test("doesn't delete notes with identic text", () => {
   wrapper.update();
 
   const result = wrapper
-    .find(NotepadView)
+    .find(View)
     .at(0)
     .prop("notes");
 
@@ -54,11 +59,7 @@ test("doesn't delete notes with identic text", () => {
 
 test("adds note to state", () => {
   jest.useFakeTimers();
-  const wrapper = mount(
-    <Provider>
-      <Notepad />
-    </Provider>
-  );
+  const wrapper = wrapMount();
 
   wrapper
     .find(NewNote)
@@ -67,7 +68,7 @@ test("adds note to state", () => {
 
   wrapper
     .find(NewNote)
-    .find(NotepadButton)
+    .find(Button)
     .simulate("click");
 
   jest.runAllTimers();
@@ -78,11 +79,7 @@ test("adds note to state", () => {
 
 test("adds notes with delay", () => {
   jest.useFakeTimers();
-  const wrapper = mount(
-    <Provider>
-      <Notepad />
-    </Provider>
-  );
+  const wrapper = wrapMount();
 
   wrapper
     .find(NewNote)
@@ -91,20 +88,20 @@ test("adds notes with delay", () => {
 
   wrapper
     .find(NewNote)
-    .find(NotepadButton)
+    .find(Button)
     .simulate("click");
 
   jest.advanceTimersByTime(1000);
   wrapper.update();
 
   let modal = wrapper
-    .find(NotepadView)
-    .at(1)
+    .find(View)
+    .at(0)
     .text();
 
   let home = wrapper
-    .find(NotepadView)
-    .at(0)
+    .find(View)
+    .at(1)
     .text();
 
   expect(modal).toMatch(/foo/);
@@ -114,12 +111,12 @@ test("adds notes with delay", () => {
   wrapper.update();
 
   modal = wrapper
-    .find(NotepadView)
+    .find(View)
     .at(1)
     .text();
 
   home = wrapper
-    .find(NotepadView)
+    .find(View)
     .at(0)
     .text();
 
@@ -129,14 +126,10 @@ test("adds notes with delay", () => {
 
 test("throttles addNote", () => {
   jest.useFakeTimers();
-  const wrapper = mount(
-    <Provider>
-      <Notepad />
-    </Provider>
-  );
+  const wrapper = wrapMount();
 
   const input = wrapper.find(NewNote).find("input");
-  const submit = wrapper.find(NewNote).find(NotepadButton);
+  const submit = wrapper.find(NewNote).find(Button);
 
   input.simulate("change", { target: { value: "foo" } });
   submit.simulate("click");
@@ -149,8 +142,8 @@ test("throttles addNote", () => {
   wrapper.update();
 
   const modal = wrapper
-    .find(NotepadView)
-    .at(1)
+    .find(View)
+    .at(0)
     .text();
 
   expect(modal).toMatch(/foo/);
@@ -159,14 +152,10 @@ test("throttles addNote", () => {
 
 test("Adds and deletes correctly", () => {
   jest.useFakeTimers();
-  const wrapper = mount(
-    <Provider>
-      <Notepad />
-    </Provider>
-  );
+  const wrapper = wrapMount();
 
   const input = wrapper.find(NewNote).find("input");
-  const submit = wrapper.find(NewNote).find(NotepadButton);
+  const submit = wrapper.find(NewNote).find(Button);
 
   input.simulate("change", { target: { value: "foo" } });
   submit.simulate("click");
@@ -177,15 +166,15 @@ test("Adds and deletes correctly", () => {
   wrapper.update();
 
   const modal = wrapper
-    .find(NotepadView)
-    .at(1)
+    .find(View)
+    .at(0)
     .text();
 
   expect(modal).toMatch(/foobar/);
 
   const deleteButton = wrapper
     .find(Note)
-    .find(NotepadButton)
+    .find(Button)
     .at(0);
 
   deleteButton.simulate("click");
@@ -193,7 +182,7 @@ test("Adds and deletes correctly", () => {
   wrapper.update();
 
   const result = wrapper
-    .find(NotepadView)
+    .find(View)
     .at(0)
     .prop("notes");
 
@@ -202,14 +191,10 @@ test("Adds and deletes correctly", () => {
 
 test("Hides before deleting", () => {
   jest.useFakeTimers();
-  const wrapper = mount(
-    <Provider>
-      <Notepad />
-    </Provider>
-  );
+  const wrapper = wrapMount();
 
   const input = wrapper.find(NewNote).find("input");
-  const submit = wrapper.find(NewNote).find(NotepadButton);
+  const submit = wrapper.find(NewNote).find(Button);
 
   input.simulate("change", { target: { value: "foo" } });
   submit.simulate("click");
@@ -218,7 +203,7 @@ test("Hides before deleting", () => {
 
   const deleteButton = wrapper
     .find(Note)
-    .find(NotepadButton)
+    .find(Button)
     .at(0);
 
   deleteButton.simulate("click");
@@ -226,7 +211,7 @@ test("Hides before deleting", () => {
   wrapper.update();
 
   let result = wrapper
-    .find(NotepadView)
+    .find(View)
     .at(0)
     .prop("notes");
 
@@ -237,7 +222,7 @@ test("Hides before deleting", () => {
   wrapper.update();
 
   result = wrapper
-    .find(NotepadView)
+    .find(View)
     .at(0)
     .prop("notes");
 

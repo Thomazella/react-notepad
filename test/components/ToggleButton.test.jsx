@@ -1,11 +1,8 @@
 import React from "react";
 import { mount } from "enzyme";
 import { TiArrowMaximise, TiArrowMinimise } from "react-icons/ti";
-import { Provider } from "reakit";
-import ToggleButton from "../ToggleButton";
-import NotepadButton from "../NotepadButton";
-
-/* eslint-disable react/jsx-filename-extension */
+import ToggleButton from "../../src/components/ToggleButton";
+import Button from "../../src/elements/Button";
 
 const ClosedIcon = TiArrowMaximise;
 const OpenedIcon = TiArrowMinimise;
@@ -21,15 +18,11 @@ test("renders opened icon", () => {
 });
 
 test("clicks toggle icons", () => {
-  const wrapper = mount(
-    <Provider>
-      <ToggleButton />
-    </Provider>
-  );
+  const wrapper = mount(<ToggleButton />);
 
-  wrapper.find(NotepadButton).simulate("click");
+  wrapper.find(Button).simulate("click");
   expect(wrapper.containsMatchingElement(<OpenedIcon />)).toBe(true);
 
-  wrapper.find(NotepadButton).simulate("click");
+  wrapper.find(Button).simulate("click");
   expect(wrapper.containsMatchingElement(<ClosedIcon />)).toBe(true);
 });

@@ -1,37 +1,34 @@
 import React from "react";
-import { Base } from "reakit";
 import PropTypes from "prop-types";
 import AnimatedNote from "./AnimatedNote";
 
-const Wrapper = Base;
-
-const NotepadView = ({ notes, deleteNote, ...props }) => {
-  if (!notes || !notes.length) return null;
+const View = ({ notes, ...props }) => {
+  if (!notes.length) return null;
 
   return (
-    <Wrapper {...props}>
+    <div>
       {notes.map((note, index) => (
         <AnimatedNote
-          key={note.id}
-          deleteNote={deleteNote}
+          key={note.id || "key"}
           index={index}
           visible={note.visible}
+          {...props}
         >
           {note.text}
         </AnimatedNote>
       ))}
-    </Wrapper>
+    </div>
   );
 };
 
-NotepadView.propTypes = {
+View.propTypes = {
   notes: PropTypes.instanceOf(Array),
   deleteNote: PropTypes.func
 };
 
-NotepadView.defaultProps = {
+View.defaultProps = {
   notes: [],
   deleteNote: () => {}
 };
 
-export default NotepadView;
+export default View;

@@ -1,6 +1,6 @@
 import { styled, InlineFlex } from "reakit";
 
-const BaseNote = styled(InlineFlex)`
+const Note = styled(InlineFlex)`
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -13,4 +13,4 @@ const BaseNote = styled(InlineFlex)`
   min-height: 40px;
 `;
 
-export default BaseNote;
+export default Note;

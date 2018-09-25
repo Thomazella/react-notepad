@@ -1,4 +1,4 @@
-import getUniqueId from "../getUniqueId";
+import getUniqueId from "../../src/utils/getUniqueId";
 
 test("multiple calls yield different numbers", () => {
   // eslint-disable-next-line no-self-compare

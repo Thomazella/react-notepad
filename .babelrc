@@ -2,7 +2,7 @@
   "presets": [
     ["env", {
       "targets": {
-        "browsers": ["defaults", "not <0.15%"]
+        "browsers": ["defaults", "not <0.25%", "not operamini all", "not ie 11", "not android 4.4-4.4.4"]
       },
       "debug": false
     }],
