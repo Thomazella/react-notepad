@@ -1,9 +1,9 @@
 import { styled, Flex, Popover, Backdrop } from "reakit";
 import { connect } from "react-redux";
 import React from "react";
-import ToggleButton from "./ToggleButton";
-import View from "./View";
-import NewNote from "./NewNote";
+import ToggleButton from "../../src/components/ToggleButton";
+import View from "../../src/components/View";
+import NewNote from "../../src/components/NewNote";
 import { selectModalNotes } from "../selectors";
 import { hideThenDelete } from "../actions";
 
